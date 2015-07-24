@@ -1,0 +1,36 @@
+{
+  "name": "voskobovich/yii2-admin-toolkit",
+  "description": "The foundation for implementing CRUD operations administrative panel for Yii2",
+  "keywords": [
+    "admin",
+    "crud",
+    "yii2",
+    "panel",
+    "email"
+  ],
+  "homepage": "https://github.com/voskobovich/yii2-admin-toolkit",
+  "type": "yii2-widget",
+  "license": "MIT",
+  "support": {
+    "issues": "https://github.com/voskobovich/yii2-admin-toolkit/issues",
+    "source": "https://github.com/voskobovich/yii2-admin-toolkit"
+  },
+  "authors": [
+    {
+      "name": "Vitaly Voskobovich",
+      "email": "vitaly@voskobovich.com",
+      "homepage": "http://voskobovich.com"
+    }
+  ],
+  "require": {
+    "php": ">=5.4.0",
+    "yiisoft/yii2": "*",
+    "voskobovich/yii2-base-toolkit": "*"
+  },
+  "autoload": {
+    "psr-4": {
+      "voskobovich\\adminToolkit\\": "",
+      "voskobovich\\adminToolkit\\actions\\": "actions"
+    }
+  }
+}
