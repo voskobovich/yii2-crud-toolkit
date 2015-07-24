@@ -1,21 +1,21 @@
-Yii2 Mandrill Module
+Yii2 Admin Toolkit
 ================================
 
-Install:
+Installation
+------------
 
-1. Config this module in your config file - protected/config/web.php like this:
+The preferred way to install this extension is through [composer](http://getcomposer.org/download/).
 
-```
-'modules' => [
-    .....
-    'mail' => [
-        'class' => 'voskobovich\mandrill\Module',
-    ],
-],
-```
-
-2. Run module migration by command
+Either run
 
 ```
-php yii migrate/up --migrationPath=@app/modules/mail/migrations
+php composer.phar require --prefer-dist voskobovich/yii2-admin-toolkit "*"
 ```
+
+or add
+
+```
+"voskobovich/yii2-admin-toolkit": "*"
+```
+
+to the require section of your `composer.json` file.
