@@ -5,7 +5,6 @@ namespace voskobovich\adminToolkit\actions;
 use voskobovich\adminToolkit\Backend;
 use voskobovich\baseToolkit\db\ActiveRecord;
 use voskobovich\baseToolkit\helpers\AlertHelper;
-use voskobovich\baseToolkit\helpers\HttpError;
 use Yii;
 use yii\base\Action;
 use yii\base\InvalidConfigException;
@@ -40,20 +39,12 @@ class CreateAction extends Action
     }
 
     /**
-     * @param $id
-     * @return null
-     * @throws \yii\web\NotFoundHttpException
+     * @return string
      */
-    public function run($id)
+    public function run()
     {
         /** @var ActiveRecord $model */
         $model = new $this->modelClass;
-        $model = $model::findByPk($id);
-
-        if (empty($model)) {
-            HttpError::the404();
-        }
-
         $params = Yii::$app->request->post();
 
         /** @var Backend $controller */
@@ -70,7 +61,7 @@ class CreateAction extends Action
             }
         }
 
-        return $controller->render('update', [
+        return $controller->render('create', [
             'model' => $model
         ]);
     }
