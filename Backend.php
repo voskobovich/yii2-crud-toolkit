@@ -3,7 +3,6 @@
 namespace voskobovich\adminToolkit;
 
 use Yii;
-use yii\base\InvalidConfigException;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
@@ -36,23 +35,6 @@ class Backend extends Controller
     public $routeAfterCreate = 'index';
     public $routeAfterUpdate = 'index';
     public $routeAfterDelete = 'index';
-
-    /**
-     * Initialization backend controller
-     * @throws \yii\web\HttpException
-     */
-    public function init()
-    {
-        if ($this->modelClass === null) {
-            throw new InvalidConfigException('Please, set "modelClass" property in your child controller');
-        }
-
-        if ($this->layout == null) {
-            throw new InvalidConfigException('Please, set "layout" property in your child controller');
-        }
-
-        parent::init();
-    }
 
     /**
      * @return array

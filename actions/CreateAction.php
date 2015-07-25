@@ -33,7 +33,7 @@ class CreateAction extends Action
      */
     public function init()
     {
-        if (null == $this->modelClass) {
+        if ($this->modelClass == null) {
             throw new InvalidConfigException('Param "modelClass" must be contain model name with namespace.');
         }
     }
