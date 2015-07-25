@@ -40,7 +40,11 @@ $this->params['breadcrumbs'][] = $this->title;
                         ],
                     ]); ?>
 
-                    <?= $this->render('@vendor/voskobovich/yii2-admin-setting-toolkit/views/_fields.php'); ?>
+                    <?= $this->render('@vendor/voskobovich/yii2-admin-setting-toolkit/views/_fields.php', [
+                        'form' => $form,
+                        'settingModel' => $settingModel,
+                        'settingForm' => $settingForm
+                    ]); ?>
 
                     <?= Html::submitButton(Yii::t('backend', 'Save'), ['class' => 'btn btn-primary']) ?>
                     <?php $form->end(); ?>
