@@ -43,7 +43,7 @@ class Backend extends Controller
      */
     public function init()
     {
-        if ($this->modelClass == null) {
+        if ($this->modelClass === null) {
             throw new InvalidConfigException('Please, set "modelClass" property in your child controller');
         }
 
