@@ -1,11 +1,11 @@
 <?php
 
-namespace voskobovich\adminToolkit\actions;
+namespace voskobovich\admin\actions;
 
-use voskobovich\adminToolkit\Backend;
-use voskobovich\baseToolkit\db\ActiveRecord;
-use voskobovich\baseToolkit\helpers\AlertHelper;
-use voskobovich\baseToolkit\helpers\HttpError;
+use voskobovich\admin\controllers\BackendController;
+use voskobovich\alert\helpers\AlertHelper;
+use voskobovich\base\db\ActiveRecord;
+use voskobovich\base\helpers\HttpError;
 use Yii;
 use yii\base\Action;
 use yii\base\InvalidConfigException;
@@ -13,7 +13,7 @@ use yii\base\InvalidConfigException;
 
 /**
  * Class UpdateAction
- * @package voskobovich\adminToolkit\actions
+ * @package voskobovich\admin\actions
  */
 class UpdateAction extends Action
 {
@@ -56,7 +56,7 @@ class UpdateAction extends Action
 
         $params = Yii::$app->request->post();
 
-        /** @var Backend $controller */
+        /** @var BackendController $controller */
         $controller = $this->controller;
 
         if ($model->load($params)) {

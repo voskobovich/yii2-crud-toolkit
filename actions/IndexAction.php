@@ -1,9 +1,9 @@
 <?php
 
-namespace voskobovich\adminToolkit\actions;
+namespace voskobovich\admin\actions;
 
-use voskobovich\adminToolkit\Backend;
-use voskobovich\baseToolkit\db\ActiveRecord;
+use voskobovich\admin\controllers\BackendController;
+use voskobovich\base\db\ActiveRecord;
 use Yii;
 use yii\base\Action;
 use yii\base\InvalidConfigException;
@@ -11,7 +11,7 @@ use yii\base\InvalidConfigException;
 
 /**
  * Class IndexAction
- * @package voskobovich\adminToolkit\actions
+ * @package voskobovich\admin\actions
  */
 class IndexAction extends Action
 {
@@ -41,7 +41,7 @@ class IndexAction extends Action
         $params = Yii::$app->request->get();
         $dataProvider = $model->search($params);
 
-        /** @var Backend $controller */
+        /** @var BackendController $controller */
         $controller = $this->controller;
 
         return $controller->render('index', [

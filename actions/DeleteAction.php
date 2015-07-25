@@ -1,10 +1,10 @@
 <?php
 
-namespace voskobovich\adminToolkit\actions;
+namespace voskobovich\admin\actions;
 
-use voskobovich\adminToolkit\Backend;
-use voskobovich\baseToolkit\db\ActiveRecord;
-use voskobovich\baseToolkit\helpers\AlertHelper;
+use voskobovich\admin\controllers\BackendController;
+use voskobovich\base\db\ActiveRecord;
+use voskobovich\alert\helpers\AlertHelper;
 use Yii;
 use yii\base\Action;
 use yii\base\InvalidConfigException;
@@ -13,7 +13,7 @@ use yii\db\Exception;
 
 /**
  * Class DeleteAction
- * @package voskobovich\adminToolkit\actions
+ * @package voskobovich\admin\actions
  */
 class DeleteAction extends Action
 {
@@ -49,7 +49,7 @@ class DeleteAction extends Action
         $model = new $this->modelClass;
         $model = $model::findByPk($id);
 
-        /** @var Backend $controller */
+        /** @var BackendController $controller */
         $controller = $this->controller;
 
         if ($model) {

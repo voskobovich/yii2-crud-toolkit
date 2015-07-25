@@ -5,11 +5,10 @@
     "admin",
     "crud",
     "yii2",
-    "panel",
-    "email"
+    "panel"
   ],
   "homepage": "https://github.com/voskobovich/yii2-admin-toolkit",
-  "type": "yii2-widget",
+  "type": "yii2-toolkit",
   "license": "MIT",
   "support": {
     "issues": "https://github.com/voskobovich/yii2-admin-toolkit/issues",
@@ -22,15 +21,20 @@
       "homepage": "http://voskobovich.com"
     }
   ],
+  "minimum-stability": "dev",
   "require": {
     "php": ">=5.4.0",
     "yiisoft/yii2": "*",
-    "voskobovich/yii2-base-toolkit": "*"
+    "yiisoft/yii2-bootstrap": "*",
+    "voskobovich/yii2-base-toolkit": "*",
+    "voskobovich/yii2-admin-setting-toolkit": "*"
   },
   "autoload": {
     "psr-4": {
-      "voskobovich\\adminToolkit\\": "",
-      "voskobovich\\adminToolkit\\actions\\": "actions"
+      "voskobovich\\admin\\actions\\": "actions",
+      "voskobovich\\admin\\controllers\\": "controllers",
+      "voskobovich\\admin\\forms\\": "forms",
+      "voskobovich\\admin\\models\\": "models"
     }
   }
 }

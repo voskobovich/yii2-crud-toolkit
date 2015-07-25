@@ -1,10 +1,10 @@
 <?php
 
-namespace voskobovich\adminToolkit\actions;
+namespace voskobovich\admin\actions;
 
-use voskobovich\adminToolkit\Backend;
-use voskobovich\baseToolkit\db\ActiveRecord;
-use voskobovich\baseToolkit\helpers\AlertHelper;
+use voskobovich\admin\controllers\BackendController;
+use voskobovich\base\db\ActiveRecord;
+use voskobovich\alert\helpers\AlertHelper;
 use Yii;
 use yii\base\Action;
 use yii\base\InvalidConfigException;
@@ -12,7 +12,7 @@ use yii\base\InvalidConfigException;
 
 /**
  * Class CreateAction
- * @package voskobovich\adminToolkit\actions
+ * @package voskobovich\admin\actions
  */
 class CreateAction extends Action
 {
@@ -47,7 +47,7 @@ class CreateAction extends Action
         $model = new $this->modelClass;
         $params = Yii::$app->request->post();
 
-        /** @var Backend $controller */
+        /** @var BackendController $controller */
         $controller = $this->controller;
 
         if ($model->load($params)) {
