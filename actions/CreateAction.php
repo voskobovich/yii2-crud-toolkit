@@ -33,6 +33,8 @@ class CreateAction extends Action
      */
     public function init()
     {
+        parent::init();
+
         if ($this->modelClass == null) {
             throw new InvalidConfigException('Param "modelClass" must be contain model name with namespace.');
         }
