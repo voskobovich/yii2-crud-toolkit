@@ -50,7 +50,7 @@ class UpdateAction extends Action
     {
         /** @var ActiveRecord $model */
         $model = new $this->modelClass;
-        $model = $model::findByPk($id);
+        $model = $model::findOne($id);
 
         if (empty($model)) {
             HttpError::the404();

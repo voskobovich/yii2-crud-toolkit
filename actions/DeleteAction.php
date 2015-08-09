@@ -49,7 +49,7 @@ class DeleteAction extends Action
     {
         /** @var ActiveRecord $model */
         $model = new $this->modelClass;
-        $model = $model::findByPk($id);
+        $model = $model::findOne($id);
 
         /** @var BackendController $controller */
         $controller = $this->controller;
