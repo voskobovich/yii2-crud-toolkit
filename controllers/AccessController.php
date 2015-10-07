@@ -25,7 +25,7 @@ class AccessController extends Controller
                 'rules' => [
                     [
                         'allow' => true,
-                        'roles' => ['moder'],
+                        'roles' => ['admin'],
                     ],
                 ],
             ],
