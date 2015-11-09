@@ -67,7 +67,14 @@ class DeleteAction extends Action
         }
 
         if ($this->redirectRoute) {
-            $controller->redirect([$this->redirectRoute]);
+            $params = [$this->redirectRoute];
+            if (($pos = strpos($this->redirectRoute, ':')) !== false) {
+                $attributeName = substr($this->redirectRoute, $pos + 1);
+                if ($attributeName && $model->hasAttribute($attributeName)) {
+                    $params[$attributeName] = $model->getAttribute($attributeName);
+                }
+            }
+            $controller->redirect($params);
         }
     }
 }

@@ -19,8 +19,8 @@ class BackendController extends AccessController
     /**
      * Action routs
      */
-    public $routeAfterCreate = 'index';
-    public $routeAfterUpdate = 'index';
+    public $routeAfterCreate = 'update:id';
+    public $routeAfterUpdate = false;
     public $routeAfterDelete = 'index';
 
     /**

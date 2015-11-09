@@ -65,7 +65,14 @@ class UpdateAction extends Action
             if ($model->save()) {
                 AlertHelper::success(Yii::t('backend', 'Saved successfully!'));
                 if ($this->redirectRoute) {
-                    $controller->redirect([$this->redirectRoute]);
+                    $params = [$this->redirectRoute];
+                    if (($pos = strpos($this->redirectRoute, ':')) !== false) {
+                        $attributeName = substr($this->redirectRoute, $pos + 1);
+                        if ($attributeName && $model->hasAttribute($attributeName)) {
+                            $params[$attributeName] = $model->getAttribute($attributeName);
+                        }
+                    }
+                    $controller->redirect($params);
                 }
             } else {
                 AlertHelper::error(Yii::t('backend', 'Error saving!'));
