@@ -26,7 +26,7 @@ abstract class BaseAction extends Action
     protected function redirect($model)
     {
         if ($this->redirectRoute) {
-            if (($pos = strpos($this->redirectRoute, ':')) !== false) {
+            if ($model && ($pos = strpos($this->redirectRoute, ':')) !== false) {
                 $route = substr($this->redirectRoute, 0, $pos);
                 $params = [$route];
 
