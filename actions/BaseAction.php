@@ -27,7 +27,7 @@ abstract class BaseAction extends Action
     {
         if ($this->redirectRoute) {
             if (($pos = strpos($this->redirectRoute, ':')) !== false) {
-                $route = substr($this->redirectRoute, 0, $pos - 1);
+                $route = substr($this->redirectRoute, 0, $pos);
                 $params = [$route];
 
                 $attributeName = substr($this->redirectRoute, $pos + 1);
