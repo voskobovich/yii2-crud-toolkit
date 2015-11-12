@@ -7,7 +7,6 @@ use voskobovich\alert\helpers\AlertHelper;
 use voskobovich\base\db\ActiveRecord;
 use voskobovich\base\helpers\HttpError;
 use Yii;
-use yii\base\Action;
 use yii\base\InvalidConfigException;
 
 
@@ -15,7 +14,7 @@ use yii\base\InvalidConfigException;
  * Class UpdateAction
  * @package voskobovich\admin\actions
  */
-class UpdateAction extends Action
+class UpdateAction extends BaseAction
 {
     /**
      * Class to use to locate the supplied data ids
@@ -27,7 +26,7 @@ class UpdateAction extends Action
      * The route which will be transferred after the user action
      * @var string
      */
-    public $redirectRoute = 'index';
+    public $redirectRoute = 'update:id';
 
     /**
      * @throws InvalidConfigException
@@ -64,16 +63,7 @@ class UpdateAction extends Action
         if ($model->load($params)) {
             if ($model->save()) {
                 AlertHelper::success(Yii::t('backend', 'Saved successfully!'));
-                if ($this->redirectRoute) {
-                    $params = [$this->redirectRoute];
-                    if (($pos = strpos($this->redirectRoute, ':')) !== false) {
-                        $attributeName = substr($this->redirectRoute, $pos + 1);
-                        if ($attributeName && $model->hasAttribute($attributeName)) {
-                            $params[$attributeName] = $model->getAttribute($attributeName);
-                        }
-                    }
-                    $controller->redirect($params);
-                }
+                $this->redirect($model);
             } else {
                 AlertHelper::error(Yii::t('backend', 'Error saving!'));
             }

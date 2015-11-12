@@ -2,11 +2,9 @@
 
 namespace voskobovich\admin\actions;
 
-use voskobovich\admin\controllers\BackendController;
 use voskobovich\base\db\ActiveRecord;
 use voskobovich\alert\helpers\AlertHelper;
 use Yii;
-use yii\base\Action;
 use yii\base\InvalidConfigException;
 use yii\db\Exception;
 
@@ -15,7 +13,7 @@ use yii\db\Exception;
  * Class DeleteAction
  * @package voskobovich\admin\actions
  */
-class DeleteAction extends Action
+class DeleteAction extends BaseAction
 {
     /**
      * Class to use to locate the supplied data ids
@@ -51,9 +49,6 @@ class DeleteAction extends Action
         $model = new $this->modelClass;
         $model = $model::findOne($id);
 
-        /** @var BackendController $controller */
-        $controller = $this->controller;
-
         if ($model) {
             try {
                 if ($model->delete()) {
@@ -66,15 +61,6 @@ class DeleteAction extends Action
             }
         }
 
-        if ($this->redirectRoute) {
-            $params = [$this->redirectRoute];
-            if (($pos = strpos($this->redirectRoute, ':')) !== false) {
-                $attributeName = substr($this->redirectRoute, $pos + 1);
-                if ($attributeName && $model->hasAttribute($attributeName)) {
-                    $params[$attributeName] = $model->getAttribute($attributeName);
-                }
-            }
-            $controller->redirect($params);
-        }
+        $this->redirect($model);
     }
 }
