@@ -19,7 +19,7 @@ class BackendController extends AccessController
     /**
      * @var string
      */
-    public $searchModelClass;
+    public $modelSearchClass;
 
     /**
      * Action routs
@@ -36,7 +36,7 @@ class BackendController extends AccessController
         return [
             'index' => [
                 'class' => 'voskobovich\admin\actions\IndexAction',
-                'modelClass' => $this->searchModelClass,
+                'modelClass' => $this->modelSearchClass,
             ],
             'create' => [
                 'class' => 'voskobovich\admin\actions\CreateAction',
