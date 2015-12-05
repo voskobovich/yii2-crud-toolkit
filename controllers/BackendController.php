@@ -17,6 +17,11 @@ class BackendController extends AccessController
     public $modelClass;
 
     /**
+     * @var string
+     */
+    public $searchModelClass;
+
+    /**
      * Action routs
      */
     public $routeAfterCreate = 'update:id';
@@ -31,7 +36,7 @@ class BackendController extends AccessController
         return [
             'index' => [
                 'class' => 'voskobovich\admin\actions\IndexAction',
-                'modelClass' => $this->modelClass,
+                'modelClass' => $this->searchModelClass,
             ],
             'create' => [
                 'class' => 'voskobovich\admin\actions\CreateAction',
