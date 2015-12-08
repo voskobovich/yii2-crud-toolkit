@@ -22,6 +22,12 @@ class IndexAction extends Action
     public $modelClass;
 
     /**
+     * View file
+     * @var string
+     */
+    public $viewFile = 'index';
+
+    /**
      * @throws InvalidConfigException
      */
     public function init()
@@ -46,7 +52,7 @@ class IndexAction extends Action
         /** @var BackendController $controller */
         $controller = $this->controller;
 
-        return $controller->render('index', [
+        return $controller->render($this->viewFile, [
             'model' => $model,
             'dataProvider' => $dataProvider
         ]);

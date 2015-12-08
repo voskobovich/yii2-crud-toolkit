@@ -23,6 +23,12 @@ class ViewAction extends Action
     public $modelClass;
 
     /**
+     * View file
+     * @var string
+     */
+    public $viewFile = 'view';
+
+    /**
      * @throws InvalidConfigException
      */
     public function init()
@@ -52,7 +58,7 @@ class ViewAction extends Action
         /** @var BackendController $controller */
         $controller = $this->controller;
 
-        return $controller->render('view', [
+        return $controller->render($this->viewFile, [
             'model' => $model
         ]);
     }

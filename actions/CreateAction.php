@@ -28,6 +28,12 @@ class CreateAction extends BaseAction
     public $redirectRoute = 'update:id';
 
     /**
+     * View file
+     * @var string
+     */
+    public $viewFile = 'create';
+
+    /**
      * @throws InvalidConfigException
      */
     public function init()
@@ -60,7 +66,7 @@ class CreateAction extends BaseAction
             }
         }
 
-        return $controller->render('create', [
+        return $controller->render($this->viewFile, [
             'model' => $model
         ]);
     }
