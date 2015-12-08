@@ -3,7 +3,6 @@
 namespace voskobovich\admin\actions;
 
 use voskobovich\base\db\ActiveRecord;
-use voskobovich\alert\helpers\AlertHelper;
 use Yii;
 use yii\base\InvalidConfigException;
 use yii\db\Exception;
@@ -52,12 +51,25 @@ class DeleteAction extends BaseAction
         if ($model) {
             try {
                 if ($model->delete()) {
-                    AlertHelper::success(Yii::t('backend', 'Successfully removed!'));
+                    if ($this->successCallback) {
+                        call_user_func($this->successCallback, $model);
+                    } else {
+                        Yii::$app->session->setFlash('delete:success');
+                    }
+                    $this->redirect($model);
                 } else {
-                    AlertHelper::error(Yii::t('backend', 'Error removing!'));
+                    if ($this->errorCallback) {
+                        call_user_func($this->errorCallback, $model);
+                    } else {
+                        Yii::$app->session->setFlash('delete:error');
+                    }
                 }
             } catch (Exception $ex) {
-                AlertHelper::error(Yii::t('backend', 'Can\'t delete entity. I\'ts in use'));
+                if ($this->errorCallback) {
+                    call_user_func($this->errorCallback, $model);
+                } else {
+                    Yii::$app->session->setFlash('delete:exception');
+                }
             }
         }
 

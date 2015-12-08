@@ -21,6 +21,16 @@ abstract class BaseAction extends Action
     public $redirectRoute;
 
     /**
+     * @var callable|null;
+     */
+    public $successCallback;
+
+    /**
+     * @var callable|null;
+     */
+    public $errorCallback;
+
+    /**
      * @var ActiveRecord $model
      */
     protected function redirect($model)

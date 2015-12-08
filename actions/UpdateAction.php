@@ -3,7 +3,6 @@
 namespace voskobovich\admin\actions;
 
 use voskobovich\admin\controllers\BackendController;
-use voskobovich\alert\helpers\AlertHelper;
 use voskobovich\base\db\ActiveRecord;
 use voskobovich\base\helpers\HttpError;
 use Yii;
@@ -68,10 +67,18 @@ class UpdateAction extends BaseAction
 
         if ($model->load($params)) {
             if ($model->save()) {
-                AlertHelper::success(Yii::t('backend', 'Saved successfully!'));
+                if ($this->successCallback) {
+                    call_user_func($this->successCallback, $model);
+                } else {
+                    Yii::$app->session->setFlash('update:success');
+                }
                 $this->redirect($model);
             } else {
-                AlertHelper::error(Yii::t('backend', 'Error saving!'));
+                if ($this->errorCallback) {
+                    call_user_func($this->errorCallback, $model);
+                } else {
+                    Yii::$app->session->setFlash('update:error');
+                }
             }
         }
 
