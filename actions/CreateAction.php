@@ -5,7 +5,6 @@ namespace voskobovich\admin\actions;
 use voskobovich\admin\controllers\BackendController;
 use voskobovich\base\db\ActiveRecord;
 use Yii;
-use yii\base\InvalidConfigException;
 
 
 /**
@@ -14,12 +13,6 @@ use yii\base\InvalidConfigException;
  */
 class CreateAction extends BaseAction
 {
-    /**
-     * Class to use to locate the supplied data ids
-     * @var string
-     */
-    public $modelClass;
-
     /**
      * The route which will be transferred after the user action
      * @var string
@@ -33,18 +26,6 @@ class CreateAction extends BaseAction
     public $viewFile = 'create';
 
     /**
-     * @throws InvalidConfigException
-     */
-    public function init()
-    {
-        parent::init();
-
-        if ($this->modelClass == null) {
-            throw new InvalidConfigException('Param "modelClass" must be contain model name with namespace.');
-        }
-    }
-
-    /**
      * @return string
      */
     public function run()
@@ -52,9 +33,6 @@ class CreateAction extends BaseAction
         /** @var ActiveRecord $model */
         $model = new $this->modelClass;
         $params = Yii::$app->request->post();
-
-        /** @var BackendController $controller */
-        $controller = $this->controller;
 
         if ($model->load($params)) {
             if ($model->save()) {
@@ -72,6 +50,9 @@ class CreateAction extends BaseAction
                 }
             }
         }
+
+        /** @var BackendController $controller */
+        $controller = $this->controller;
 
         return $controller->render($this->viewFile, [
             'model' => $model

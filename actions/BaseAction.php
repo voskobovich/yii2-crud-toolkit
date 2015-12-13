@@ -4,8 +4,10 @@ namespace voskobovich\admin\actions;
 
 use voskobovich\admin\controllers\BackendController;
 use voskobovich\base\db\ActiveRecord;
+use voskobovich\base\helpers\HttpError;
 use Yii;
 use yii\base\Action;
+use yii\base\InvalidConfigException;
 
 
 /**
@@ -14,6 +16,12 @@ use yii\base\Action;
  */
 abstract class BaseAction extends Action
 {
+    /**
+     * Class to use to locate the supplied data ids
+     * @var string
+     */
+    public $modelClass;
+
     /**
      * The route which will be transferred after the user action
      * @var string
@@ -29,6 +37,18 @@ abstract class BaseAction extends Action
      * @var callable|null;
      */
     public $errorCallback;
+
+    /**
+     * @throws InvalidConfigException
+     */
+    public function init()
+    {
+        parent::init();
+
+        if ($this->modelClass == null) {
+            throw new InvalidConfigException('Param "modelClass" must be contain model name with namespace.');
+        }
+    }
 
     /**
      * @var ActiveRecord $model
@@ -52,5 +72,24 @@ abstract class BaseAction extends Action
             $controller = $this->controller;
             $controller->redirect($params);
         }
+    }
+
+    /**
+     * Find model by Primary key
+     * @param $id
+     * @return ActiveRecord
+     * @throws \yii\web\NotFoundHttpException
+     */
+    public function findModel($id)
+    {
+        /** @var ActiveRecord $model */
+        $model = new $this->modelClass;
+        $model = $model::findOne($id);
+
+        if (empty($model)) {
+            HttpError::the404();
+        }
+
+        return $model;
     }
 }

@@ -3,9 +3,8 @@
 namespace voskobovich\admin\actions;
 
 use voskobovich\admin\controllers\BackendController;
-use voskobovich\base\db\ActiveRecord;
+use voskobovich\admin\forms\IndexFormAbstract;
 use Yii;
-use yii\base\Action;
 use yii\base\InvalidConfigException;
 
 
@@ -13,14 +12,8 @@ use yii\base\InvalidConfigException;
  * Class IndexAction
  * @package voskobovich\admin\actions
  */
-class IndexAction extends Action
+class IndexAction extends BaseAction
 {
-    /**
-     * Class to use to locate the supplied data ids
-     * @var string
-     */
-    public $modelClass;
-
     /**
      * View file
      * @var string
@@ -28,24 +21,20 @@ class IndexAction extends Action
     public $viewFile = 'index';
 
     /**
+     * @return string
      * @throws InvalidConfigException
-     */
-    public function init()
-    {
-        parent::init();
-
-        if ($this->modelClass == null) {
-            throw new InvalidConfigException('Param "modelClass" must be contain model name with namespace.');
-        }
-    }
-
-    /**
-     * @return null
      */
     public function run()
     {
-        /** @var ActiveRecord $model */
-        $model = new $this->modelClass;
+        /* @var \yii\base\Model $formClass */
+        $modelClass = $this->modelClass;
+        if (!$modelClass instanceof IndexFormAbstract) {
+            throw new InvalidConfigException('Property "modelClass" must be implemented "voskobovich\admin\forms\IndexFormAbstract"');
+        }
+
+        /** @var IndexFormAbstract $model */
+        $model = new $modelClass;
+
         $params = Yii::$app->request->get();
         $dataProvider = $model->search($params);
 
