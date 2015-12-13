@@ -12,7 +12,7 @@ use yii\base\InvalidConfigException;
  * Class RelationAction
  * @package voskobovich\admin\actions
  */
-class RelationAction extends BAseAction
+class RelationAction extends BaseAction
 {
     /**
      * Class to use search relation records
