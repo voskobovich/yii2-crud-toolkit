@@ -54,15 +54,17 @@ class RelationAction extends BAseAction
             throw new InvalidConfigException('Property "formClass" must be implemented "voskobovich\admin\forms\RelationFormAbstract"');
         }
 
+        $params = Yii::$app->request->get();
+        $dataProvider = $form->search($params);
+
         $form->model = $model;
-        $form->validate();
 
         /** @var BackendController $controller */
         $controller = $this->controller;
 
         return $controller->render($this->viewFile, [
-            'model' => $model,
-            'form' => $form
+            'model' => $form,
+            'dataProvider' => $dataProvider
         ]);
     }
 }

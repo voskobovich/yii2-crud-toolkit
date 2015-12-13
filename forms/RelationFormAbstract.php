@@ -19,7 +19,8 @@ abstract class RelationFormAbstract extends Model
 
     /**
      * Query building
-     * @return \yii\db\ActiveQuery
+     * @param $params
+     * @return \yii\data\ActiveDataProvider
      */
-    abstract public function buildQuery();
+    abstract public function search($params);
 }
