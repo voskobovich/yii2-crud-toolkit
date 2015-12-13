@@ -26,14 +26,12 @@ class IndexAction extends BaseAction
      */
     public function run()
     {
-        /* @var \yii\base\Model $formClass */
-        $modelClass = $this->modelClass;
-        if (!$modelClass instanceof IndexFormAbstract) {
+        /** @var IndexFormAbstract $model */
+        $model = new $this->modelClass;
+
+        if (!$model instanceof IndexFormAbstract) {
             throw new InvalidConfigException('Property "modelClass" must be implemented "voskobovich\admin\forms\IndexFormAbstract"');
         }
-
-        /** @var IndexFormAbstract $model */
-        $model = new $modelClass;
 
         $params = Yii::$app->request->get();
         $dataProvider = $model->search($params);

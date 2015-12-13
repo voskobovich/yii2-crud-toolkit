@@ -48,14 +48,13 @@ class RelationAction extends BAseAction
     {
         $model = $this->findModel($id);
 
-        /* @var \yii\base\Model $formClass */
-        $formClass = $this->formClass;
-        if (!$formClass instanceof RelationFormAbstract) {
+        /** @var RelationFormAbstract $form */
+        $form = new $this->formClass;
+        if (!$form instanceof RelationFormAbstract) {
             throw new InvalidConfigException('Property "formClass" must be implemented "voskobovich\admin\forms\RelationFormAbstract"');
         }
 
-        /** @var RelationFormAbstract $form */
-        $form = new $formClass(['model' => $model]);
+        $form->model = $model;
         $form->validate();
 
         /** @var BackendController $controller */
