@@ -55,9 +55,7 @@ class RelationAction extends BaseAction
         }
 
         $params = Yii::$app->request->get();
-        $dataProvider = $form->search($params);
-
-        $form->model = $model;
+        $dataProvider = $form->search($model, $params);
 
         /** @var BackendController $controller */
         $controller = $this->controller;
