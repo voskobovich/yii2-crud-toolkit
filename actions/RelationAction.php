@@ -61,7 +61,8 @@ class RelationAction extends BaseAction
         $controller = $this->controller;
 
         return $controller->render($this->viewFile, [
-            'model' => $form,
+            'model' => $model,
+            'form' => $form,
             'dataProvider' => $dataProvider
         ]);
     }
