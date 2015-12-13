@@ -30,7 +30,8 @@
   "autoload": {
     "psr-4": {
       "voskobovich\\admin\\actions\\": "actions",
-      "voskobovich\\admin\\controllers\\": "controllers"
+      "voskobovich\\admin\\controllers\\": "controllers",
+      "voskobovich\\admin\\forms\\": "forms"
     }
   }
 }
