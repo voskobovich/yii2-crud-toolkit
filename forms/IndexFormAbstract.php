@@ -2,6 +2,7 @@
 
 namespace voskobovich\admin\forms;
 
+use voskobovich\base\traits\ModelTrait;
 use yii\base\Model;
 
 
@@ -11,6 +12,8 @@ use yii\base\Model;
  */
 abstract class IndexFormAbstract extends Model
 {
+    use ModelTrait;
+
     /**
      * Query building
      * @param $params

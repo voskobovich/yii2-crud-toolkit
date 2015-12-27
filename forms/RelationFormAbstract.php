@@ -2,6 +2,7 @@
 
 namespace voskobovich\admin\forms;
 
+use voskobovich\base\traits\ModelTrait;
 use yii\base\Model;
 use yii\db\ActiveRecord;
 
@@ -12,6 +13,8 @@ use yii\db\ActiveRecord;
  */
 abstract class RelationFormAbstract extends Model
 {
+    use ModelTrait;
+
     /**
      * Query building
      * @param ActiveRecord $model
