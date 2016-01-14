@@ -4,6 +4,8 @@ namespace voskobovich\crud\actions;
 
 use voskobovich\crud\controllers\BackendController;
 use Yii;
+use yii\web\Response;
+use yii\widgets\ActiveForm;
 
 
 /**
@@ -36,6 +38,12 @@ class UpdateAction extends BaseAction
         $params = Yii::$app->request->post();
 
         if ($model->load($params)) {
+
+            if (Yii::$app->request->isAjax && !empty($params['ajax'])) {
+                Yii::$app->response->format = Response::FORMAT_JSON;
+                return ActiveForm::validate($model);
+            }
+
             if ($model->save()) {
                 if ($this->successCallback) {
                     call_user_func($this->successCallback, $model);
