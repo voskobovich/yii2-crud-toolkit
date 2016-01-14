@@ -24,9 +24,9 @@ class BackendController extends AccessController
     /**
      * Action routs
      */
-    public $routeAfterCreate = 'update:id';
-    public $routeAfterUpdate = false;
-    public $routeAfterDelete = 'index';
+    public $urlAfterCreate = ['update', 'id' => ':id'];
+    public $urlAfterUpdate = false;
+    public $urlAfterDelete = ['index'];
 
     /**
      * @return array
@@ -41,17 +41,17 @@ class BackendController extends AccessController
             'create' => [
                 'class' => 'voskobovich\crud\actions\CreateAction',
                 'modelClass' => $this->modelClass,
-                'redirectRoute' => $this->routeAfterCreate
+                'redirectUrl' => $this->urlAfterCreate
             ],
             'update' => [
                 'class' => 'voskobovich\crud\actions\UpdateAction',
                 'modelClass' => $this->modelClass,
-                'redirectRoute' => $this->routeAfterUpdate
+                'redirectUrl' => $this->urlAfterUpdate
             ],
             'delete' => [
                 'class' => 'voskobovich\crud\actions\DeleteAction',
                 'modelClass' => $this->modelClass,
-                'redirectRoute' => $this->routeAfterDelete
+                'redirectUrl' => $this->urlAfterDelete
             ],
         ];
     }
