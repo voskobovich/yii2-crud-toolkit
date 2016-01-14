@@ -1,6 +1,6 @@
 <?php
 
-namespace voskobovich\admin\forms;
+namespace voskobovich\crud\forms;
 
 use voskobovich\base\traits\ModelTrait;
 use yii\base\Model;
@@ -9,7 +9,7 @@ use yii\db\ActiveRecord;
 
 /**
  * Class RelationFormAbstract
- * @package voskobovich\admin\forms
+ * @package voskobovich\crud\forms
  */
 abstract class RelationFormAbstract extends Model
 {

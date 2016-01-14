@@ -1,6 +1,6 @@
 <?php
 
-namespace voskobovich\admin\actions;
+namespace voskobovich\crud\actions;
 
 use voskobovich\base\db\ActiveRecord;
 use Yii;
@@ -9,7 +9,7 @@ use yii\db\Exception;
 
 /**
  * Class DeleteAction
- * @package voskobovich\admin\actions
+ * @package voskobovich\crud\actions
  */
 class DeleteAction extends BaseAction
 {

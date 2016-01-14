@@ -1,18 +1,17 @@
 {
-  "name": "voskobovich/yii2-admin-toolkit",
-  "description": "The foundation for implementing CRUD operations administrative panel for Yii2",
+  "name": "voskobovich/yii2-crud-toolkit",
+  "description": "The foundation for implementing CRUD operations for Yii2",
   "keywords": [
-    "admin",
     "crud",
     "yii2",
-    "panel"
+    "toolkit"
   ],
-  "homepage": "https://github.com/voskobovich/yii2-admin-toolkit",
+  "homepage": "https://github.com/voskobovich/yii2-crud-toolkit",
   "type": "yii2-toolkit",
   "license": "MIT",
   "support": {
-    "issues": "https://github.com/voskobovich/yii2-admin-toolkit/issues",
-    "source": "https://github.com/voskobovich/yii2-admin-toolkit"
+    "issues": "https://github.com/voskobovich/yii2-crud-toolkit/issues",
+    "source": "https://github.com/voskobovich/yii2-crud-toolkit"
   },
   "authors": [
     {
@@ -28,9 +27,9 @@
   },
   "autoload": {
     "psr-4": {
-      "voskobovich\\admin\\actions\\": "src/actions",
-      "voskobovich\\admin\\controllers\\": "src/controllers",
-      "voskobovich\\admin\\forms\\": "src/forms"
+      "voskobovich\\crud\\actions\\": "src/actions",
+      "voskobovich\\crud\\controllers\\": "src/controllers",
+      "voskobovich\\crud\\forms\\": "src/forms"
     }
   }
 }

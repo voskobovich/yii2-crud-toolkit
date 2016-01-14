@@ -1,6 +1,6 @@
 <?php
 
-namespace voskobovich\admin\forms;
+namespace voskobovich\crud\forms;
 
 use voskobovich\base\traits\ModelTrait;
 use yii\base\Model;
@@ -8,7 +8,7 @@ use yii\base\Model;
 
 /**
  * Class IndexFormAbstract
- * @package voskobovich\admin\forms
+ * @package voskobovich\crud\forms
  */
 abstract class IndexFormAbstract extends Model
 {

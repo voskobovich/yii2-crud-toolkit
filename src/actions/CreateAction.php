@@ -1,15 +1,15 @@
 <?php
 
-namespace voskobovich\admin\actions;
+namespace voskobovich\crud\actions;
 
-use voskobovich\admin\controllers\BackendController;
+use voskobovich\crud\controllers\BackendController;
 use voskobovich\base\db\ActiveRecord;
 use Yii;
 
 
 /**
  * Class CreateAction
- * @package voskobovich\admin\actions
+ * @package voskobovich\crud\actions
  */
 class CreateAction extends BaseAction
 {

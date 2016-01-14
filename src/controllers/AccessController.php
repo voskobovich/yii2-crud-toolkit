@@ -1,6 +1,6 @@
 <?php
 
-namespace voskobovich\admin\controllers;
+namespace voskobovich\crud\controllers;
 
 use Yii;
 use yii\web\Controller;
@@ -10,7 +10,7 @@ use yii\filters\AccessControl;
 
 /**
  * Class AccessController
- * @package voskobovich\admin\controllers
+ * @package voskobovich\crud\controllers
  */
 class AccessController extends Controller
 {

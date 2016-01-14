@@ -1,16 +1,16 @@
 <?php
 
-namespace voskobovich\admin\actions;
+namespace voskobovich\crud\actions;
 
-use voskobovich\admin\controllers\BackendController;
-use voskobovich\admin\forms\IndexFormAbstract;
+use voskobovich\crud\controllers\BackendController;
+use voskobovich\crud\forms\IndexFormAbstract;
 use Yii;
 use yii\base\InvalidConfigException;
 
 
 /**
  * Class IndexAction
- * @package voskobovich\admin\actions
+ * @package voskobovich\crud\actions
  */
 class IndexAction extends BaseAction
 {
@@ -30,7 +30,7 @@ class IndexAction extends BaseAction
         $model = new $this->modelClass;
 
         if (!$model instanceof IndexFormAbstract) {
-            throw new InvalidConfigException('Property "modelClass" must be implemented "voskobovich\admin\forms\IndexFormAbstract"');
+            throw new InvalidConfigException('Property "modelClass" must be implemented "voskobovich\crud\forms\IndexFormAbstract"');
         }
 
         $params = Yii::$app->request->get();

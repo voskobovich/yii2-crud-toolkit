@@ -1,14 +1,14 @@
 <?php
 
-namespace voskobovich\admin\actions;
+namespace voskobovich\crud\actions;
 
-use voskobovich\admin\controllers\BackendController;
+use voskobovich\crud\controllers\BackendController;
 use Yii;
 
 
 /**
  * Class ViewAction
- * @package voskobovich\admin\actions
+ * @package voskobovich\crud\actions
  */
 class ViewAction extends BaseAction
 {

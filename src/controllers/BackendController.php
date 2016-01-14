@@ -1,13 +1,13 @@
 <?php
 
-namespace voskobovich\admin\controllers;
+namespace voskobovich\crud\controllers;
 
 use Yii;
 
 
 /**
  * Class Backend
- * @package voskobovich\admin\controllers
+ * @package voskobovich\crud\controllers
  */
 class BackendController extends AccessController
 {
@@ -35,21 +35,21 @@ class BackendController extends AccessController
     {
         return [
             'index' => [
-                'class' => 'voskobovich\admin\actions\IndexAction',
+                'class' => 'voskobovich\crud\actions\IndexAction',
                 'modelClass' => $this->modelSearchClass,
             ],
             'create' => [
-                'class' => 'voskobovich\admin\actions\CreateAction',
+                'class' => 'voskobovich\crud\actions\CreateAction',
                 'modelClass' => $this->modelClass,
                 'redirectRoute' => $this->routeAfterCreate
             ],
             'update' => [
-                'class' => 'voskobovich\admin\actions\UpdateAction',
+                'class' => 'voskobovich\crud\actions\UpdateAction',
                 'modelClass' => $this->modelClass,
                 'redirectRoute' => $this->routeAfterUpdate
             ],
             'delete' => [
-                'class' => 'voskobovich\admin\actions\DeleteAction',
+                'class' => 'voskobovich\crud\actions\DeleteAction',
                 'modelClass' => $this->modelClass,
                 'redirectRoute' => $this->routeAfterDelete
             ],

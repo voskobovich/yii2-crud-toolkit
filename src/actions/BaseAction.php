@@ -1,8 +1,8 @@
 <?php
 
-namespace voskobovich\admin\actions;
+namespace voskobovich\crud\actions;
 
-use voskobovich\admin\controllers\BackendController;
+use voskobovich\crud\controllers\BackendController;
 use voskobovich\base\db\ActiveRecord;
 use voskobovich\base\helpers\HttpError;
 use Yii;
@@ -12,7 +12,7 @@ use yii\base\InvalidConfigException;
 
 /**
  * Class BaseAction
- * @package voskobovich\admin\actions
+ * @package voskobovich\crud\actions
  */
 abstract class BaseAction extends Action
 {
