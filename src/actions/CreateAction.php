@@ -51,6 +51,10 @@ class CreateAction extends BaseAction
             }
         }
 
+        if (!$this->viewFile) {
+            return null;
+        }
+
         /** @var BackendController $controller */
         $controller = $this->controller;
 

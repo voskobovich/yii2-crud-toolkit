@@ -52,6 +52,10 @@ class UpdateAction extends BaseAction
             }
         }
 
+        if (!$this->viewFile) {
+            return null;
+        }
+
         /** @var BackendController $controller */
         $controller = $this->controller;
 
