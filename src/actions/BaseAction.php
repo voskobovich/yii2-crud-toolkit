@@ -26,7 +26,7 @@ abstract class BaseAction extends Action
      * The route which will be transferred after the user action
      * @var string
      */
-    public $redirectRoute;
+    public $redirectUrl;
 
     /**
      * @var callable|null;
@@ -55,22 +55,19 @@ abstract class BaseAction extends Action
      */
     protected function redirect($model)
     {
-        if ($this->redirectRoute) {
-            if ($model && ($pos = strpos($this->redirectRoute, ':')) !== false) {
-                $route = substr($this->redirectRoute, 0, $pos);
-                $params = [$route];
-
-                $attributeName = substr($this->redirectRoute, $pos + 1);
-                if ($attributeName && $model->hasAttribute($attributeName)) {
-                    $params[$attributeName] = $model->getAttribute($attributeName);
-                }
-            } else {
-                $params = [$this->redirectRoute];
+        if ($this->redirectUrl) {
+            if (is_array($this->redirectUrl) && $model) {
+                array_walk($this->redirectUrl, function (&$value) use ($model) {
+                    if (($pos = strpos($value, ':')) !== false) {
+                        $attributeName = substr($value, $pos + 1);
+                        $value = $model->getAttribute($attributeName);
+                    }
+                });
             }
 
             /** @var BackendController $controller */
             $controller = $this->controller;
-            $controller->redirect($params);
+            $controller->redirect($this->redirectUrl);
         }
     }
 

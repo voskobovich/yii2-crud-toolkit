@@ -16,7 +16,7 @@ class UpdateAction extends BaseAction
      * The route which will be transferred after the user action
      * @var string
      */
-    public $redirectRoute = 'update:id';
+    public $redirectUrl = ['update', 'id' => ':id'];
 
     /**
      * View file

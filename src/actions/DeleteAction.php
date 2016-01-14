@@ -17,7 +17,7 @@ class DeleteAction extends BaseAction
      * The route which will be transferred after the user action
      * @var string
      */
-    public $redirectRoute = 'index';
+    public $redirectUrl = ['index'];
 
     /**
      * @param $id
