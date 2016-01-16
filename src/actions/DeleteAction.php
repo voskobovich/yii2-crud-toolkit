@@ -2,8 +2,8 @@
 
 namespace voskobovich\crud\actions;
 
-use voskobovich\base\db\ActiveRecord;
 use Yii;
+use yii\db\ActiveRecord;
 use yii\db\Exception;
 
 
@@ -20,14 +20,14 @@ class DeleteAction extends BaseAction
     public $redirectUrl = ['index'];
 
     /**
-     * @param $id
      * @return null
      */
-    public function run($id)
+    public function run()
     {
+        $pk = $this->getModelPk();
+
         /** @var ActiveRecord $model */
-        $model = new $this->modelClass;
-        $model = $model::findOne($id);
+        $model = $this->findModel($pk, false);
 
         if ($model) {
             try {

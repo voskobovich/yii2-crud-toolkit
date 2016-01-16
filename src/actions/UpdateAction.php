@@ -4,6 +4,7 @@ namespace voskobovich\crud\actions;
 
 use voskobovich\crud\controllers\BackendController;
 use Yii;
+use yii\db\ActiveRecord;
 use yii\web\Response;
 use yii\widgets\ActiveForm;
 
@@ -27,13 +28,15 @@ class UpdateAction extends BaseAction
     public $viewFile = 'update';
 
     /**
-     * @param $id
      * @return string
      * @throws \yii\web\NotFoundHttpException
      */
-    public function run($id)
+    public function run()
     {
-        $model = $this->findModel($id);
+        $pk = $this->getModelPk();
+
+        /** @var ActiveRecord $model */
+        $model = $this->findModel($pk);
 
         $params = Yii::$app->request->post();
 

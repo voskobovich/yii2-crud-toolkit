@@ -6,6 +6,7 @@ use voskobovich\crud\controllers\BackendController;
 use voskobovich\crud\forms\RelationFormAbstract;
 use Yii;
 use yii\base\InvalidConfigException;
+use yii\db\ActiveRecord;
 
 
 /**
@@ -39,14 +40,16 @@ class RelationAction extends BaseAction
     }
 
     /**
-     * @param $id
      * @return string
      * @throws InvalidConfigException
      * @throws \yii\web\NotFoundHttpException
      */
-    public function run($id)
+    public function run()
     {
-        $model = $this->findModel($id);
+        $pk = $this->getModelPk();
+
+        /** @var ActiveRecord $model */
+        $model = $this->findModel($pk);
 
         /** @var RelationFormAbstract $form */
         $form = new $this->formClass;

@@ -3,11 +3,11 @@
 namespace voskobovich\crud\actions;
 
 use voskobovich\crud\controllers\BackendController;
-use voskobovich\base\db\ActiveRecord;
 use voskobovich\base\helpers\HttpError;
 use Yii;
 use yii\base\Action;
 use yii\base\InvalidConfigException;
+use yii\db\ActiveRecord;
 
 
 /**
@@ -21,6 +21,12 @@ abstract class BaseAction extends Action
      * @var string
      */
     public $modelClass;
+
+    /**
+     * Callable function to get for values primary key
+     * @var string
+     */
+    public $modelPk;
 
     /**
      * The route which will be transferred after the user action
@@ -72,18 +78,37 @@ abstract class BaseAction extends Action
     }
 
     /**
+     * @param bool $throwException
+     * @return string
+     * @throws \yii\web\BadRequestHttpException
+     */
+    public function getModelPk($throwException = true)
+    {
+        if ($this->modelPk == null) {
+            $this->modelPk = Yii::$app->request->get('id');
+        }
+
+        if ($this->modelPk == null && $throwException) {
+            HttpError::the400();
+        }
+
+        return $this->modelPk;
+    }
+
+    /**
      * Find model by Primary key
-     * @param $id
+     * @param $pk
+     * @param bool $throwException
      * @return ActiveRecord
      * @throws \yii\web\NotFoundHttpException
      */
-    public function findModel($id)
+    public function findModel($pk, $throwException = true)
     {
         /** @var ActiveRecord $model */
         $model = new $this->modelClass;
-        $model = $model::findOne($id);
+        $model = $model::findOne($pk);
 
-        if (empty($model)) {
+        if (empty($model) && $throwException) {
             HttpError::the404();
         }
 

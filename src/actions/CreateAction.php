@@ -3,7 +3,7 @@
 namespace voskobovich\crud\actions;
 
 use voskobovich\crud\controllers\BackendController;
-use voskobovich\base\db\ActiveRecord;
+use yii\db\ActiveRecord;
 use Yii;
 use yii\web\Response;
 use yii\widgets\ActiveForm;

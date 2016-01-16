@@ -4,6 +4,7 @@ namespace voskobovich\crud\actions;
 
 use voskobovich\crud\controllers\BackendController;
 use Yii;
+use yii\db\ActiveRecord;
 
 
 /**
@@ -19,13 +20,15 @@ class ViewAction extends BaseAction
     public $viewFile = 'view';
 
     /**
-     * @param $id
      * @return string
      * @throws \yii\web\NotFoundHttpException
      */
-    public function run($id)
+    public function run()
     {
-        $model = $this->findModel($id);
+        $pk = $this->getModelPk();
+
+        /** @var ActiveRecord $model */
+        $model = $this->findModel($pk);
 
         /** @var BackendController $controller */
         $controller = $this->controller;
