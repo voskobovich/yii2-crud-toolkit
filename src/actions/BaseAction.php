@@ -58,6 +58,7 @@ abstract class BaseAction extends Action
 
     /**
      * @var ActiveRecord $model
+     * @return bool
      */
     protected function redirect($model)
     {
@@ -74,7 +75,11 @@ abstract class BaseAction extends Action
             /** @var BackendController $controller */
             $controller = $this->controller;
             $controller->redirect($this->redirectUrl);
+
+            return true;
         }
+
+        return false;
     }
 
     /**
