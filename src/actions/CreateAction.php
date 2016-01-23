@@ -50,6 +50,7 @@ class CreateAction extends BaseAction
                     Yii::$app->session->setFlash('create:success');
                 }
                 $this->redirect($model);
+                return null;
             } else {
                 if ($this->errorCallback) {
                     call_user_func($this->errorCallback, $model);

@@ -54,6 +54,7 @@ class UpdateAction extends BaseAction
                     Yii::$app->session->setFlash('update:success');
                 }
                 $this->redirect($model);
+                return null;
             } else {
                 if ($this->errorCallback) {
                     call_user_func($this->errorCallback, $model);
