@@ -44,8 +44,7 @@ class UpdateAction extends BaseAction
         $model = $this->findModel($pk);
         $model->scenario = $this->scenario;
 
-        $params = Yii::$app->request->post();
-
+        $params = Yii::$app->getRequest()->getBodyParams();
         if ($model->load($params)) {
 
             if ($this->enableAjaxValidation && Yii::$app->request->isAjax && !empty($params['ajax'])) {
