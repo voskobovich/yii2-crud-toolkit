@@ -23,7 +23,7 @@ class AccessController extends Controller
             'access' => [
                 'class' => AccessControl::className(),
                 'rules' => [
-                    [
+                    'default' => [
                         'allow' => true,
                         'roles' => ['admin'],
                     ],
