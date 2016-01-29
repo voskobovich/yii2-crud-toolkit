@@ -34,8 +34,9 @@ class CreateAction extends BaseAction
     {
         /** @var ActiveRecord $model */
         $model = new $this->modelClass;
-        $params = Yii::$app->request->post();
+        $model->scenario = $this->scenario;
 
+        $params = Yii::$app->request->post();
         if ($model->load($params)) {
 
             if (Yii::$app->request->isAjax && !empty($params['ajax'])) {
@@ -50,9 +51,7 @@ class CreateAction extends BaseAction
                     Yii::$app->session->setFlash('create:success');
                 }
 
-                if ($this->redirect($model)) {
-                    return null;
-                }
+                return $this->redirect($model);
             } else {
                 if ($this->errorCallback) {
                     call_user_func($this->errorCallback, $model);

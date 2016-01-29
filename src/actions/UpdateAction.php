@@ -37,6 +37,7 @@ class UpdateAction extends BaseAction
 
         /** @var ActiveRecord $model */
         $model = $this->findModel($pk);
+        $model->scenario = $this->scenario;
 
         $params = Yii::$app->request->post();
 
@@ -54,9 +55,7 @@ class UpdateAction extends BaseAction
                     Yii::$app->session->setFlash('update:success');
                 }
 
-                if ($this->redirect($model)) {
-                    return null;
-                }
+                return $this->redirect($model);
             } else {
                 if ($this->errorCallback) {
                     call_user_func($this->errorCallback, $model);

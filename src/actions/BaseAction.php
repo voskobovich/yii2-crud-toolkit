@@ -7,6 +7,7 @@ use voskobovich\base\helpers\HttpError;
 use Yii;
 use yii\base\Action;
 use yii\base\InvalidConfigException;
+use yii\base\Model;
 use yii\db\ActiveRecord;
 
 
@@ -35,6 +36,11 @@ abstract class BaseAction extends Action
     public $redirectUrl;
 
     /**
+     * @var string the scenario to be assigned to the model before it is validated and updated.
+     */
+    public $scenario = Model::SCENARIO_DEFAULT;
+
+    /**
      * @var callable|null;
      */
     public $successCallback;
@@ -52,7 +58,7 @@ abstract class BaseAction extends Action
         parent::init();
 
         if ($this->modelClass == null) {
-            throw new InvalidConfigException('Param "modelClass" must be contain model name with namespace.');
+            throw new InvalidConfigException('Property "modelClass" must be contain model name with namespace.');
         }
     }
 
@@ -74,12 +80,10 @@ abstract class BaseAction extends Action
 
             /** @var BackendController $controller */
             $controller = $this->controller;
-            $controller->redirect($this->redirectUrl);
-
-            return true;
+            return $controller->redirect($this->redirectUrl);
         }
 
-        return false;
+        return null;
     }
 
     /**
@@ -103,17 +107,17 @@ abstract class BaseAction extends Action
     /**
      * Find model by Primary key
      * @param $pk
-     * @param bool $throwException
+     * @param bool $enableException
      * @return ActiveRecord
      * @throws \yii\web\NotFoundHttpException
      */
-    public function findModel($pk, $throwException = true)
+    public function findModel($pk, $enableException = true)
     {
         /** @var ActiveRecord $model */
-        $model = new $this->modelClass;
+        $model = $this->modelClass;
         $model = $model::findOne($pk);
 
-        if (empty($model) && $throwException) {
+        if (empty($model) && $enableException) {
             HttpError::the404();
         }
 

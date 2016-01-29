@@ -20,6 +20,11 @@ class DeleteAction extends BaseAction
     public $redirectUrl = ['index'];
 
     /**
+     * @var callable|null;
+     */
+    public $exceptionCallback;
+
+    /**
      * @return null
      */
     public function run()
@@ -28,6 +33,7 @@ class DeleteAction extends BaseAction
 
         /** @var ActiveRecord $model */
         $model = $this->findModel($pk, false);
+        $model->scenario = $this->scenario;
 
         if ($model) {
             try {
@@ -37,7 +43,6 @@ class DeleteAction extends BaseAction
                     } else {
                         Yii::$app->session->setFlash('delete:success');
                     }
-                    $this->redirect($model);
                 } else {
                     if ($this->errorCallback) {
                         call_user_func($this->errorCallback, $model);
@@ -46,14 +51,14 @@ class DeleteAction extends BaseAction
                     }
                 }
             } catch (Exception $ex) {
-                if ($this->errorCallback) {
-                    call_user_func($this->errorCallback, $model);
+                if ($this->exceptionCallback) {
+                    call_user_func($this->exceptionCallback, $model, $ex);
                 } else {
                     Yii::$app->session->setFlash('delete:exception');
                 }
             }
         }
 
-        $this->redirect($model);
+        return $this->redirect($model);
     }
 }

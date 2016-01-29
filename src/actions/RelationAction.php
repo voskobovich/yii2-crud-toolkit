@@ -28,15 +28,19 @@ class RelationAction extends BaseAction
     public $viewFile;
 
     /**
-     * @throws InvalidConfigException
+     * @inheritdoc
      */
     public function init()
     {
-        parent::init();
-
         if ($this->formClass == null) {
-            throw new InvalidConfigException('Param "formClass" must be contain form name with namespace.');
+            throw new InvalidConfigException('Property "formClass" must be contain form name with namespace.');
         }
+
+        if (!is_subclass_of($this->formClass, RelationFormAbstract::className())) {
+            throw new InvalidConfigException('Property "modelClass" must be implemented ' . RelationFormAbstract::className());
+        }
+
+        parent::init();
     }
 
     /**
@@ -53,9 +57,7 @@ class RelationAction extends BaseAction
 
         /** @var RelationFormAbstract $form */
         $form = new $this->formClass;
-        if (!$form instanceof RelationFormAbstract) {
-            throw new InvalidConfigException('Property "formClass" must be implemented "voskobovich\crud\forms\RelationFormAbstract"');
-        }
+        $form->scenario = $this->scenario;
 
         $params = Yii::$app->request->get();
         $dataProvider = $form->search($model, $params);
