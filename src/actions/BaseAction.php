@@ -42,6 +42,12 @@ abstract class BaseAction extends Action
     public $scenario = Model::SCENARIO_DEFAULT;
 
     /**
+     * Name of Primary key
+     * @var string
+     */
+    public $primaryKeyName = 'id';
+
+    /**
      * @var callable|null;
      */
     public $successCallback;
@@ -95,7 +101,7 @@ abstract class BaseAction extends Action
     public function getModelPk($throwException = true)
     {
         if ($this->modelPk == null) {
-            $this->modelPk = Yii::$app->request->get('id');
+            $this->modelPk = Yii::$app->request->get($this->primaryKeyName);
         }
 
         if ($this->modelPk == null && $throwException) {

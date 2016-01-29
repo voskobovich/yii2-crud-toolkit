@@ -132,7 +132,7 @@ abstract class FindableFormAbstract extends Model
     /**
      * @return mixed
      */
-    public function getId()
+    public function getPrimaryKey()
     {
         return $this->_sourceModel->getPrimaryKey();
     }
