@@ -28,6 +28,11 @@ class CreateAction extends BaseAction
     public $viewFile = 'create';
 
     /**
+     * @var bool
+     */
+    public $enableAjaxValidation = true;
+
+    /**
      * @return string
      */
     public function run()
@@ -39,7 +44,7 @@ class CreateAction extends BaseAction
         $params = Yii::$app->request->post();
         if ($model->load($params)) {
 
-            if (Yii::$app->request->isAjax && !empty($params['ajax'])) {
+            if ($this->enableAjaxValidation && Yii::$app->request->isAjax && !empty($params['ajax'])) {
                 Yii::$app->response->format = Response::FORMAT_JSON;
                 return ActiveForm::validate($model);
             }

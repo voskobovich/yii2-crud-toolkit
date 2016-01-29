@@ -28,6 +28,11 @@ class UpdateAction extends BaseAction
     public $viewFile = 'update';
 
     /**
+     * @var bool
+     */
+    public $enableAjaxValidation = true;
+
+    /**
      * @return string
      * @throws \yii\web\NotFoundHttpException
      */
@@ -43,7 +48,7 @@ class UpdateAction extends BaseAction
 
         if ($model->load($params)) {
 
-            if (Yii::$app->request->isAjax && !empty($params['ajax'])) {
+            if ($this->enableAjaxValidation && Yii::$app->request->isAjax && !empty($params['ajax'])) {
                 Yii::$app->response->format = Response::FORMAT_JSON;
                 return ActiveForm::validate($model);
             }
