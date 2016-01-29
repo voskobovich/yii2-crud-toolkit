@@ -25,7 +25,7 @@ class BackendController extends AccessController
      * Action routs
      */
     public $urlAfterCreate = ['update', 'id' => ':id'];
-    public $urlAfterUpdate = false;
+    public $urlAfterUpdate = ['update', 'id' => ':id'];
     public $urlAfterDelete = ['index'];
 
     /**
@@ -55,5 +55,4 @@ class BackendController extends AccessController
             ],
         ];
     }
-
 }

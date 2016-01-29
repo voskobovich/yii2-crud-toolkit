@@ -2,6 +2,7 @@
 
 namespace voskobovich\crud\forms;
 
+use voskobovich\base\traits\ModelTrait;
 use Yii;
 use yii\base\InvalidConfigException;
 use yii\base\Model;
@@ -11,14 +12,18 @@ use yii\db\ActiveRecord;
 /**
  * Class FindableFormAbstract
  * @package voskobovich\crud\forms
+ *
+ * @property ActiveRecord $source
  */
 abstract class FindableFormAbstract extends Model
 {
+    use ModelTrait;
+
     /**
      * Editable model class name
      * @var string
      */
-    public $modelClass;
+    public static $modelClass;
 
     /**
      * Default attribute for print error
@@ -35,7 +40,7 @@ abstract class FindableFormAbstract extends Model
     /**
      * @var ActiveRecord
      */
-    protected $_model;
+    protected $_sourceModel;
 
     /**
      * @inheritdoc
@@ -43,11 +48,11 @@ abstract class FindableFormAbstract extends Model
      */
     public function init()
     {
-        if (!$this->modelClass) {
+        if (!static::$modelClass) {
             throw new InvalidConfigException('Property "modelClass" can not be empty.');
         }
 
-        if (!is_subclass_of($this->modelClass, ActiveRecord::className())) {
+        if (!is_subclass_of(static::$modelClass, ActiveRecord::className())) {
             throw new InvalidConfigException('Property "modelClass" must be implemented ' . ActiveRecord::className());
         }
 
@@ -62,13 +67,17 @@ abstract class FindableFormAbstract extends Model
      * @param $id
      * @return null|ActiveRecord
      */
-    public function findOne($id)
+    public static function findOne($id)
     {
-        /** @var ActiveRecord $model */
-        $model = $this->modelClass;
-        $this->_model = $model::findOne($id);
+        /** @var ActiveRecord $sourceModel */
+        $sourceModel = static::$modelClass;
+        $sourceModel = $sourceModel::findOne($id);
 
-        return $this;
+        $model = new static();
+        $model->_sourceModel = $sourceModel;
+        $model->setAttributes($sourceModel->getAttributes());
+
+        return $model;
     }
 
     /**
@@ -83,10 +92,10 @@ abstract class FindableFormAbstract extends Model
             return false;
         }
 
-        $this->_model->setAttributes($this->getAttributes());
+        $this->_sourceModel->setAttributes($this->getAttributes());
 
-        if (!$this->_model->save()) {
-            $this->populateErrors($this->_model, $this->modelDefaultAttribute);
+        if (!$this->_sourceModel->save()) {
+            $this->populateErrors($this->_sourceModel, $this->modelDefaultAttribute);
             return false;
         }
 
@@ -118,5 +127,21 @@ abstract class FindableFormAbstract extends Model
                 $this->addError($attribute, $mes);
             }
         }
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getId()
+    {
+        return $this->_sourceModel->getPrimaryKey();
+    }
+
+    /**
+     * @return ActiveRecord
+     */
+    public function getSource()
+    {
+        return $this->_sourceModel;
     }
 }

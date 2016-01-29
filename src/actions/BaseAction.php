@@ -9,6 +9,7 @@ use yii\base\Action;
 use yii\base\InvalidConfigException;
 use yii\base\Model;
 use yii\db\ActiveRecord;
+use yii\helpers\ArrayHelper;
 
 
 /**
@@ -73,7 +74,7 @@ abstract class BaseAction extends Action
                 array_walk($this->redirectUrl, function (&$value) use ($model) {
                     if (($pos = strpos($value, ':')) !== false) {
                         $attributeName = substr($value, $pos + 1);
-                        $value = $model->getAttribute($attributeName);
+                        $value = ArrayHelper::getValue($model, $attributeName);
                     }
                 });
             }
