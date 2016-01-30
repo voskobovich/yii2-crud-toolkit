@@ -75,22 +75,18 @@ abstract class BaseAction extends Action
      */
     protected function redirect($model)
     {
-        if ($this->redirectUrl) {
-            if (is_array($this->redirectUrl) && $model) {
-                array_walk($this->redirectUrl, function (&$value) use ($model) {
-                    if (($pos = strpos($value, ':')) !== false) {
-                        $attributeName = substr($value, $pos + 1);
-                        $value = ArrayHelper::getValue($model, $attributeName);
-                    }
-                });
-            }
-
-            /** @var BackendController $controller */
-            $controller = $this->controller;
-            return $controller->redirect($this->redirectUrl);
+        if (is_array($this->redirectUrl) && $model) {
+            array_walk($this->redirectUrl, function (&$value) use ($model) {
+                if (($pos = strpos($value, ':')) !== false) {
+                    $attributeName = substr($value, $pos + 1);
+                    $value = ArrayHelper::getValue($model, $attributeName);
+                }
+            });
         }
 
-        return null;
+        /** @var BackendController $controller */
+        $controller = $this->controller;
+        return $controller->redirect($this->redirectUrl);
     }
 
     /**
