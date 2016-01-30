@@ -23,24 +23,24 @@ abstract class FindableFormAbstract extends Model
      * Editable model class name
      * @var string
      */
-    public static $modelClass;
+    public static $sourceClass;
 
     /**
      * Default attribute for print error
      * @var string
      */
-    public $modelDefaultAttribute;
+    public $sourceDefaultAttribute;
 
     /**
      * Default scenario for editable model
      * @var string
      */
-    public $modelScenario = ActiveRecord::SCENARIO_DEFAULT;
+    public $sourceScenario = ActiveRecord::SCENARIO_DEFAULT;
 
     /**
      * @var ActiveRecord
      */
-    protected $_sourceModel;
+    protected $_source;
 
     /**
      * @inheritdoc
@@ -48,19 +48,19 @@ abstract class FindableFormAbstract extends Model
      */
     public function init()
     {
-        if (!static::$modelClass) {
-            throw new InvalidConfigException('Property "modelClass" can not be empty.');
+        if (!static::$sourceClass) {
+            throw new InvalidConfigException('Property "sourceClass" can not be empty.');
         }
 
-        if (!is_subclass_of(static::$modelClass, ActiveRecord::className())) {
-            throw new InvalidConfigException('Property "modelClass" must be implemented ' . ActiveRecord::className());
+        if (!is_subclass_of(static::$sourceClass, ActiveRecord::className())) {
+            throw new InvalidConfigException('Property "sourceClass" must be implemented ' . ActiveRecord::className());
         }
 
-        if (!$this->modelDefaultAttribute) {
-            throw new InvalidConfigException('Property "modelDefaultAttribute" can not be empty.');
+        if (!$this->sourceDefaultAttribute) {
+            throw new InvalidConfigException('Property "sourceDefaultAttribute" can not be empty.');
         }
 
-        $this->_sourceModel = new static::$modelClass();
+        $this->_source = new static::$sourceClass();
 
         parent::init();
     }
@@ -71,17 +71,16 @@ abstract class FindableFormAbstract extends Model
      */
     public static function findOne($id)
     {
-        /** @var ActiveRecord $sourceModel */
-        $sourceModel = static::$modelClass;
-        $sourceModel = $sourceModel::findOne($id);
+        /** @var ActiveRecord $source */
+        $source = static::$sourceClass;
+        $source = $source::findOne($id);
 
-        if ($sourceModel == null) {
+        if ($source == null) {
             return null;
         }
 
         $model = new static();
-        $model->_sourceModel = $sourceModel;
-        $model->setAttributes($sourceModel->getAttributes());
+        $model->setSource($source);
 
         return $model;
     }
@@ -98,11 +97,10 @@ abstract class FindableFormAbstract extends Model
             return false;
         }
 
-        $this->_sourceModel->scenario = $this->modelScenario;
-        $this->_sourceModel->setAttributes($this->getAttributes());
+        $this->_source->load($this->getAttributes(), '');
 
-        if (!$this->_sourceModel->save()) {
-            $this->populateErrors($this->_sourceModel, $this->modelDefaultAttribute);
+        if (!$this->_source->save()) {
+            $this->populateErrors($this->_source, $this->sourceDefaultAttribute);
             return false;
         }
 
@@ -141,7 +139,17 @@ abstract class FindableFormAbstract extends Model
      */
     public function getPrimaryKey()
     {
-        return $this->_sourceModel->getPrimaryKey();
+        return $this->_source->getPrimaryKey();
+    }
+
+    /**
+     * @param ActiveRecord $value
+     */
+    public function setSource(ActiveRecord $value)
+    {
+        $this->_source = $value;
+        $this->_source->scenario = $this->sourceScenario;
+        $this->load($this->_source->getAttributes(), '');
     }
 
     /**
@@ -149,6 +157,6 @@ abstract class FindableFormAbstract extends Model
      */
     public function getSource()
     {
-        return $this->_sourceModel;
+        return $this->_source;
     }
 }
