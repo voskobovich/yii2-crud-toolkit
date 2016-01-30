@@ -53,7 +53,7 @@ abstract class FindableFormAbstract extends Model
         }
 
         if (!is_subclass_of(static::$sourceClass, ActiveRecord::className())) {
-            throw new InvalidConfigException('Property "sourceClass" must be implemented ' . ActiveRecord::className());
+            throw new InvalidConfigException('Class "sourceClass" must be implemented ' . ActiveRecord::className());
         }
 
         if (!$this->sourceDefaultAttribute) {
@@ -71,6 +71,8 @@ abstract class FindableFormAbstract extends Model
      */
     public static function findOne($id)
     {
+        $model = new static();
+
         /** @var ActiveRecord $source */
         $source = static::$sourceClass;
         $source = $source::findOne($id);
@@ -79,7 +81,6 @@ abstract class FindableFormAbstract extends Model
             return null;
         }
 
-        $model = new static();
         $model->setSource($source);
 
         return $model;
