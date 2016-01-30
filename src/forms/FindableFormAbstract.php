@@ -60,6 +60,8 @@ abstract class FindableFormAbstract extends Model
             throw new InvalidConfigException('Property "modelDefaultAttribute" can not be empty.');
         }
 
+        $this->_sourceModel = new static::$modelClass();
+
         parent::init();
     }
 
@@ -72,6 +74,10 @@ abstract class FindableFormAbstract extends Model
         /** @var ActiveRecord $sourceModel */
         $sourceModel = static::$modelClass;
         $sourceModel = $sourceModel::findOne($id);
+
+        if ($sourceModel == null) {
+            return null;
+        }
 
         $model = new static();
         $model->_sourceModel = $sourceModel;
@@ -92,6 +98,7 @@ abstract class FindableFormAbstract extends Model
             return false;
         }
 
+        $this->_sourceModel->scenario = $this->modelScenario;
         $this->_sourceModel->setAttributes($this->getAttributes());
 
         if (!$this->_sourceModel->save()) {
