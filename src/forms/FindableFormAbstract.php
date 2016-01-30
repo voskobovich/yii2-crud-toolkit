@@ -49,7 +49,7 @@ abstract class FindableFormAbstract extends Model
     public function init()
     {
         if (!static::$sourceClass) {
-            throw new InvalidConfigException('Property "sourceClass" can not be empty.');
+            throw new InvalidConfigException('Static property "sourceClass" can not be empty.');
         }
 
         if (!is_subclass_of(static::$sourceClass, ActiveRecord::className())) {
