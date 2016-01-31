@@ -116,8 +116,6 @@ abstract class BaseAction extends Action
      */
     public function findModel($pk, $enableException = true)
     {
-        $pk = intval($pk);
-
         /** @var ActiveRecord $model */
         $model = $this->modelClass;
         $model = $model::findOne($pk);
