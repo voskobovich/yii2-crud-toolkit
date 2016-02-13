@@ -22,8 +22,8 @@
   ],
   "require": {
     "php": ">=5.4.0",
-    "yiisoft/yii2": "~2.0.0",
-    "voskobovich/yii2-base-toolkit": "~2.1.0"
+    "yiisoft/yii2": "^2.0.0",
+    "voskobovich/yii2-base-toolkit": "^2.1.0"
   },
   "autoload": {
     "psr-4": {
