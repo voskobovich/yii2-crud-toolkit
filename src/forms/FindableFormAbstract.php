@@ -13,6 +13,10 @@ use yii\db\ActiveRecord;
  * Class FindableFormAbstract
  * @package voskobovich\crud\forms
  *
+ * @property string $sourceScenario
+ * @property string $defaultAttribute
+ *
+ * @property ActiveRecord $_source
  * @property ActiveRecord $source
  */
 abstract class FindableFormAbstract extends Model
@@ -23,13 +27,7 @@ abstract class FindableFormAbstract extends Model
      * Editable model class name
      * @var string
      */
-    public static $sourceClass;
-
-    /**
-     * Default attribute for print error
-     * @var string
-     */
-    public $sourceDefaultAttribute;
+    private static $sourceClass;
 
     /**
      * Default scenario for editable model
@@ -38,9 +36,15 @@ abstract class FindableFormAbstract extends Model
     public $sourceScenario = ActiveRecord::SCENARIO_DEFAULT;
 
     /**
+     * Default attribute for print error
+     * @var string
+     */
+    public $defaultAttribute;
+
+    /**
      * @var ActiveRecord
      */
-    protected $_source;
+    private $_source;
 
     /**
      * @inheritdoc
@@ -53,16 +57,43 @@ abstract class FindableFormAbstract extends Model
         }
 
         if (!is_subclass_of(static::$sourceClass, ActiveRecord::className())) {
-            throw new InvalidConfigException('Class "sourceClass" must be implemented ' . ActiveRecord::className());
-        }
-
-        if (!$this->sourceDefaultAttribute) {
-            throw new InvalidConfigException('Property "sourceDefaultAttribute" can not be empty.');
+            throw new InvalidConfigException('Class name in "sourceClass" must be implemented ' . ActiveRecord::className());
         }
 
         $this->_source = new static::$sourceClass();
 
         parent::init();
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPrimaryKey()
+    {
+        return $this->getSource()->getPrimaryKey();
+    }
+
+    /**
+     * @param ActiveRecord $value
+     */
+    public function setSource(ActiveRecord $value)
+    {
+        $this->_source = $value;
+        $this->_source->scenario = $this->sourceScenario;
+
+        $attributes = array_intersect_key(
+            $this->_source->getAttributes(),
+            array_flip($this->safeAttributes())
+        );
+        $this->setAttributes($attributes);
+    }
+
+    /**
+     * @return ActiveRecord
+     */
+    public function getSource()
+    {
+        return $this->_source;
     }
 
     /**
@@ -98,39 +129,20 @@ abstract class FindableFormAbstract extends Model
             return false;
         }
 
-        $this->_source->load($this->getAttributes(), '');
+        $source = $this->getSource();
 
-        if (!$this->_source->save()) {
-            $this->populateErrors($this->_source, $this->sourceDefaultAttribute);
-            return false;
+        $attributes = array_intersect_key(
+            $this->getAttributes(),
+            array_flip($source->safeAttributes())
+        );
+        $source->setAttributes($attributes);
+
+        $result = $source->save();
+
+        if ($this->defaultAttribute && !$result && $source->hasErrors()) {
+            $this->populateErrors($source, $this->defaultAttribute);
         }
 
-        return true;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getPrimaryKey()
-    {
-        return $this->_source->getPrimaryKey();
-    }
-
-    /**
-     * @param ActiveRecord $value
-     */
-    public function setSource(ActiveRecord $value)
-    {
-        $this->_source = $value;
-        $this->_source->scenario = $this->sourceScenario;
-        $this->load($this->_source->getAttributes(), '');
-    }
-
-    /**
-     * @return ActiveRecord
-     */
-    public function getSource()
-    {
-        return $this->_source;
+        return $result;
     }
 }
