@@ -129,7 +129,7 @@ abstract class FindableFormAbstract extends Model
             return false;
         }
 
-        $source = $this->getSource();
+        $source = $this->source;
 
         $attributes = array_intersect_key(
             $this->getAttributes(),
@@ -139,10 +139,13 @@ abstract class FindableFormAbstract extends Model
 
         $result = $source->save();
 
-        if ($this->defaultAttribute && !$result && $source->hasErrors()) {
-            $this->populateErrors($source, $this->defaultAttribute);
+        if (!$result) {
+            if ($this->defaultAttribute && $source->hasErrors()) {
+                $this->populateErrors($source, $this->defaultAttribute);
+            }
+            return false;
         }
 
-        return $result;
+        return true;
     }
 }

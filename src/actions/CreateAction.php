@@ -43,7 +43,6 @@ class CreateAction extends BaseAction
 
         $params = Yii::$app->getRequest()->getBodyParams();
         if ($model->load($params)) {
-
             if ($this->enableAjaxValidation && Yii::$app->request->isAjax && !empty($params['ajax'])) {
                 Yii::$app->response->format = Response::FORMAT_JSON;
                 return ActiveForm::validate($model);
