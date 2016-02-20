@@ -27,7 +27,7 @@ abstract class FindableFormAbstract extends Model
      * Editable model class name
      * @var string
      */
-    private static $sourceClass;
+    public static $sourceClass;
 
     /**
      * Default scenario for editable model
