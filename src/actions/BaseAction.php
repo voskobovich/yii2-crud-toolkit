@@ -72,10 +72,10 @@ abstract class BaseAction extends Action
     }
 
     /**
-     * @var ActiveRecord $model
+     * @var Model $model
      * @return Response
      */
-    protected function redirect(ActiveRecord $model)
+    protected function redirect($model)
     {
         if (is_array($this->redirectUrl)) {
             array_walk($this->redirectUrl, function (&$value) use ($model) {
