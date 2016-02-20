@@ -27,13 +27,13 @@ abstract class BaseAction extends Action
 
     /**
      * Callable function to get for values primary key
-     * @var string
+     * @var integer
      */
     public $modelPk;
 
     /**
      * The route which will be transferred after the user action
-     * @var string
+     * @var array|callable
      */
     public $redirectUrl;
 
@@ -49,12 +49,12 @@ abstract class BaseAction extends Action
     public $primaryKeyName = 'id';
 
     /**
-     * @var callable|null;
+     * @var callable|null|bool;
      */
     public $successCallback;
 
     /**
-     * @var callable|null;
+     * @var callable|null|bool;
      */
     public $errorCallback;
 
