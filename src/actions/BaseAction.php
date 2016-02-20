@@ -10,6 +10,7 @@ use yii\base\InvalidConfigException;
 use yii\base\Model;
 use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
+use yii\web\Response;
 
 
 /**
@@ -71,17 +72,19 @@ abstract class BaseAction extends Action
 
     /**
      * @var ActiveRecord $model
-     * @return bool
+     * @return Response
      */
-    protected function redirect($model)
+    protected function redirect(ActiveRecord $model)
     {
-        if (is_array($this->redirectUrl) && $model) {
+        if (is_array($this->redirectUrl)) {
             array_walk($this->redirectUrl, function (&$value) use ($model) {
                 if (($pos = strpos($value, ':')) !== false) {
                     $attributeName = substr($value, $pos + 1);
                     $value = ArrayHelper::getValue($model, $attributeName);
                 }
             });
+        } elseif (is_callable($this->redirectUrl)) {
+            $this->redirectUrl = call_user_func($this->redirectUrl, $model);
         }
 
         /** @var BackendController $controller */
