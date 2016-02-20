@@ -15,12 +15,12 @@ class DeleteAction extends BaseAction
 {
     /**
      * The route which will be transferred after the user action
-     * @var string
+     * @var string|array|callable
      */
     public $redirectUrl = ['index'];
 
     /**
-     * @var callable|null;
+     * @var callable|bool;
      */
     public $exceptionCallback;
 

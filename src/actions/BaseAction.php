@@ -33,12 +33,13 @@ abstract class BaseAction extends Action
 
     /**
      * The route which will be transferred after the user action
-     * @var array|callable
+     * @var string|array|callable
      */
     public $redirectUrl;
 
     /**
-     * @var string the scenario to be assigned to the model before it is validated and updated.
+     * The scenario to be assigned to the model before it is validated and updated.
+     * @var string
      */
     public $scenario = Model::SCENARIO_DEFAULT;
 
@@ -49,12 +50,12 @@ abstract class BaseAction extends Action
     public $primaryKeyName = 'id';
 
     /**
-     * @var callable|null|bool;
+     * @var callable|bool;
      */
     public $successCallback;
 
     /**
-     * @var callable|null|bool;
+     * @var callable|bool;
      */
     public $errorCallback;
 

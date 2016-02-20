@@ -17,7 +17,7 @@ class CreateAction extends BaseAction
 {
     /**
      * The route which will be transferred after the user action
-     * @var string
+     * @var string|array|callable
      */
     public $redirectUrl = ['update', 'id' => ':primaryKey'];
 
