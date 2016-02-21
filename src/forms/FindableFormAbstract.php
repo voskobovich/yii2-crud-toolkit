@@ -118,6 +118,35 @@ abstract class FindableFormAbstract extends Model
     }
 
     /**
+     * @param null $attributeNames
+     * @param bool $clearErrors
+     * @return bool
+     */
+    public function validate($attributeNames = null, $clearErrors = true)
+    {
+        if (parent::validate($attributeNames, $clearErrors)) {
+            $source = $this->source;
+
+            $attributes = array_intersect_key(
+                $this->getAttributes(),
+                array_flip($source->safeAttributes())
+            );
+            $source->setAttributes($attributes);
+
+            if (!$source->validate()) {
+                if ($this->defaultAttribute && $source->hasErrors()) {
+                    $this->populateErrors($source, $this->defaultAttribute);
+                }
+                return false;
+            }
+
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
      * @param bool $runValidation
      * @param null $attributeNames
      * @return bool
