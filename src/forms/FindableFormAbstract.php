@@ -74,6 +74,30 @@ abstract class FindableFormAbstract extends Model
     }
 
     /**
+     * Populate attributes value of source model
+     */
+    public function populateSourceAttributes()
+    {
+        $attributes = array_intersect_key(
+            $this->getAttributes(),
+            array_flip($this->source->safeAttributes())
+        );
+        $this->source->setAttributes($attributes);
+    }
+
+    /**
+     * Populate attributes value
+     */
+    public function populateAttributes()
+    {
+        $attributes = array_intersect_key(
+            $this->_source->getAttributes(),
+            array_flip($this->safeAttributes())
+        );
+        $this->setAttributes($attributes);
+    }
+
+    /**
      * @param ActiveRecord $value
      */
     public function setSource(ActiveRecord $value)
@@ -81,11 +105,7 @@ abstract class FindableFormAbstract extends Model
         $this->_source = $value;
         $this->_source->scenario = $this->sourceScenario;
 
-        $attributes = array_intersect_key(
-            $this->_source->getAttributes(),
-            array_flip($this->safeAttributes())
-        );
-        $this->setAttributes($attributes);
+        $this->populateAttributes();
     }
 
     /**
@@ -127,11 +147,7 @@ abstract class FindableFormAbstract extends Model
         if (parent::validate($attributeNames, $clearErrors)) {
             $source = $this->source;
 
-            $attributes = array_intersect_key(
-                $this->getAttributes(),
-                array_flip($source->safeAttributes())
-            );
-            $source->setAttributes($attributes);
+            $this->populateSourceAttributes();
 
             if (!$source->validate()) {
                 if ($this->defaultAttribute && $source->hasErrors()) {
@@ -158,14 +174,9 @@ abstract class FindableFormAbstract extends Model
             return false;
         }
 
+        $this->populateSourceAttributes();
+
         $source = $this->source;
-
-        $attributes = array_intersect_key(
-            $this->getAttributes(),
-            array_flip($source->safeAttributes())
-        );
-        $source->setAttributes($attributes);
-
         $result = $source->save();
 
         if (!$result) {
