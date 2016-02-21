@@ -41,7 +41,8 @@ class CreateAction extends BaseAction
         $model = new $this->modelClass;
         $model->scenario = $this->scenario;
 
-        if ($model->load(Yii::$app->getRequest()->getBodyParams())) {
+        $params = Yii::$app->getRequest()->getBodyParams();
+        if ($model->load($params)) {
             if ($this->enableAjaxValidation && Yii::$app->request->isAjax && !empty($params['ajax'])) {
                 Yii::$app->response->format = Response::FORMAT_JSON;
                 return ActiveForm::validate($model);
