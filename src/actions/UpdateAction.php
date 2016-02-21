@@ -52,7 +52,7 @@ class UpdateAction extends BaseAction
 
             if ($model->save()) {
                 if (is_callable($this->successCallback)) {
-                    call_user_func($this->successCallback, $model);
+                    call_user_func($this->successCallback, $model, $this);
                 } elseif ($this->successCallback !== false) {
                     Yii::$app->session->setFlash('update:success');
                 }
@@ -62,7 +62,7 @@ class UpdateAction extends BaseAction
                 }
             } else {
                 if (is_callable($this->errorCallback)) {
-                    call_user_func($this->errorCallback, $model);
+                    call_user_func($this->errorCallback, $model, $this);
                 } elseif ($this->errorCallback !== false) {
                     Yii::$app->session->setFlash('update:error');
                 }

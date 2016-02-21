@@ -39,20 +39,20 @@ class DeleteAction extends BaseAction
             try {
                 if ($model->delete()) {
                     if (is_callable($this->successCallback)) {
-                        call_user_func($this->successCallback, $model);
+                        call_user_func($this->successCallback, $model, $this);
                     } elseif ($this->successCallback !== false) {
                         Yii::$app->session->setFlash('delete:success');
                     }
                 } else {
                     if (is_callable($this->errorCallback)) {
-                        call_user_func($this->errorCallback, $model);
+                        call_user_func($this->errorCallback, $model, $this);
                     } elseif ($this->errorCallback !== false) {
                         Yii::$app->session->setFlash('delete:error');
                     }
                 }
             } catch (Exception $ex) {
                 if (is_callable($this->exceptionCallback)) {
-                    call_user_func($this->exceptionCallback, $model, $ex);
+                    call_user_func($this->exceptionCallback, $model, $this, $ex);
                 } elseif ($this->exceptionCallback !== false) {
                     Yii::$app->session->setFlash('delete:exception');
                 }
