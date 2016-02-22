@@ -6,10 +6,10 @@ use Yii;
 
 
 /**
- * Class Backend
+ * Class Controller
  * @package voskobovich\crud\controllers
  */
-class BackendController extends AccessController
+class Controller extends AccessController
 {
     /**
      * @var string
