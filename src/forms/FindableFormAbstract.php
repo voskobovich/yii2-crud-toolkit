@@ -53,11 +53,11 @@ abstract class FindableFormAbstract extends Model
     public function init()
     {
         if (!static::$sourceClass) {
-            throw new InvalidConfigException('Static property "sourceClass" can not be empty.');
+            throw new InvalidConfigException('Static property "sourceClass" must be contain source model class name.');
         }
 
         if (!is_subclass_of(static::$sourceClass, ActiveRecord::className())) {
-            throw new InvalidConfigException('Class name in "sourceClass" must be implemented ' . ActiveRecord::className());
+            throw new InvalidConfigException('Model in "sourceClass" must to be inherited from "' . ActiveRecord::className() . '"');
         }
 
         $this->_source = new static::$sourceClass();

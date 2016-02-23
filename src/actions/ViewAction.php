@@ -2,9 +2,9 @@
 
 namespace voskobovich\crud\actions;
 
-use voskobovich\crud\controllers\BackendController;
 use Yii;
 use yii\db\ActiveRecord;
+use yii\web\Controller;
 
 
 /**
@@ -30,7 +30,7 @@ class ViewAction extends BaseAction
         /** @var ActiveRecord $model */
         $model = $this->findModel($pk);
 
-        /** @var BackendController $controller */
+        /** @var Controller $controller */
         $controller = $this->controller;
 
         return $controller->render($this->viewFile, [

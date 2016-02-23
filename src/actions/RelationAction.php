@@ -2,11 +2,11 @@
 
 namespace voskobovich\crud\actions;
 
-use voskobovich\crud\controllers\BackendController;
 use voskobovich\crud\forms\RelationFormAbstract;
 use Yii;
 use yii\base\InvalidConfigException;
 use yii\db\ActiveRecord;
+use yii\web\Controller;
 
 
 /**
@@ -62,7 +62,7 @@ class RelationAction extends BaseAction
         $params = Yii::$app->request->get();
         $dataProvider = $form->search($model, $params);
 
-        /** @var BackendController $controller */
+        /** @var Controller $controller */
         $controller = $this->controller;
 
         return $controller->render($this->viewFile, [

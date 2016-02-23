@@ -2,7 +2,6 @@
 
 namespace voskobovich\crud\actions;
 
-use voskobovich\crud\controllers\BackendController;
 use voskobovich\base\helpers\HttpError;
 use Yii;
 use yii\base\Action;
@@ -10,6 +9,7 @@ use yii\base\InvalidConfigException;
 use yii\base\Model;
 use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
+use yii\web\Controller;
 use yii\web\Response;
 
 
@@ -44,10 +44,10 @@ abstract class BaseAction extends Action
     public $scenario = Model::SCENARIO_DEFAULT;
 
     /**
-     * Name of Primary key
+     * Name of primary key
      * @var string
      */
-    public $primaryKeyName = 'id';
+    public $pkName = 'id';
 
     /**
      * @var callable|bool;
@@ -67,7 +67,7 @@ abstract class BaseAction extends Action
         parent::init();
 
         if ($this->modelClass == null) {
-            throw new InvalidConfigException('Property "modelClass" must be contain model name with namespace.');
+            throw new InvalidConfigException('Property "modelClass" must be contain model class name.');
         }
     }
 
@@ -88,7 +88,7 @@ abstract class BaseAction extends Action
             $this->redirectUrl = call_user_func($this->redirectUrl, $model);
         }
 
-        /** @var BackendController $controller */
+        /** @var Controller $controller */
         $controller = $this->controller;
         return $controller->redirect($this->redirectUrl);
     }
@@ -101,7 +101,7 @@ abstract class BaseAction extends Action
     public function getModelPk($throwException = true)
     {
         if ($this->modelPk == null) {
-            $this->modelPk = Yii::$app->request->get($this->primaryKeyName);
+            $this->modelPk = Yii::$app->request->get($this->pkName);
         }
 
         if ($this->modelPk == null && $throwException) {
@@ -114,17 +114,17 @@ abstract class BaseAction extends Action
     /**
      * Find model by Primary key
      * @param $pk
-     * @param bool $enableException
+     * @param bool $throwException
      * @return ActiveRecord
      * @throws \yii\web\NotFoundHttpException
      */
-    public function findModel($pk, $enableException = true)
+    public function findModel($pk, $throwException = true)
     {
         /** @var ActiveRecord $model */
         $model = $this->modelClass;
         $model = $model::findOne($pk);
 
-        if (empty($model) && $enableException) {
+        if (empty($model) && $throwException) {
             HttpError::the404();
         }
 

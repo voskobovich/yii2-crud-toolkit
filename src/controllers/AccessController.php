@@ -15,6 +15,12 @@ use yii\filters\AccessControl;
 class AccessController extends Controller
 {
     /**
+     * Allow access for roles
+     * @var array
+     */
+    public $allowRoles = ['admin'];
+
+    /**
      * @return array
      */
     public function behaviors()
@@ -25,7 +31,7 @@ class AccessController extends Controller
                 'rules' => [
                     'default' => [
                         'allow' => true,
-                        'roles' => ['admin'],
+                        'roles' => $this->allowRoles,
                     ],
                 ],
             ],
