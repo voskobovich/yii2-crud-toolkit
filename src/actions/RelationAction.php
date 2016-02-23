@@ -22,7 +22,7 @@ class RelationAction extends BaseAction
     public $formClass;
 
     /**
-     * View file
+     * View name
      * @var string
      */
     public $viewFile;

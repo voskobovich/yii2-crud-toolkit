@@ -16,18 +16,19 @@ use yii\widgets\ActiveForm;
 class UpdateAction extends BaseAction
 {
     /**
-     * The route which will be transferred after the user action
+     * The route which will be redirected after the user action
      * @var string|array|callable
      */
     public $redirectUrl = ['update', 'id' => ':primaryKey'];
 
     /**
-     * View file
+     * View name
      * @var string
      */
     public $viewFile = 'update';
 
     /**
+     * Enable or disable ajax validation handler
      * @var bool
      */
     public $enableAjaxValidation = true;

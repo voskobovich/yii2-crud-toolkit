@@ -14,12 +14,19 @@ use yii\db\Exception;
 class DeleteAction extends BaseAction
 {
     /**
-     * The route which will be transferred after the user action
+     * The route which will be redirected after the user action
      * @var string|array|callable
      */
     public $redirectUrl = ['index'];
 
     /**
+     * A callback which defines the logic of the removal of the object
+     * @var callable;
+     */
+    public $handler;
+
+    /**
+     * Is called when a throw exception
      * @var callable|bool;
      */
     public $exceptionCallback;
@@ -37,7 +44,13 @@ class DeleteAction extends BaseAction
 
         if ($model) {
             try {
-                if ($model->delete()) {
+                if (is_callable($this->handler)) {
+                    $result = call_user_func($this->handler, $model, $this);
+                } else {
+                    $result = $model->delete();
+                }
+
+                if ($result) {
                     if (is_callable($this->successCallback)) {
                         call_user_func($this->successCallback, $model, $this);
                     } elseif ($this->successCallback !== false) {

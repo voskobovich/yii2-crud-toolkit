@@ -14,7 +14,7 @@ use yii\web\Controller;
 class ViewAction extends BaseAction
 {
     /**
-     * View file
+     * View name
      * @var string
      */
     public $viewFile = 'view';

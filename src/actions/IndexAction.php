@@ -15,7 +15,7 @@ use yii\web\Controller;
 class IndexAction extends BaseAction
 {
     /**
-     * View file
+     * View name
      * @var string
      */
     public $viewFile = 'index';

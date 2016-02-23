@@ -26,13 +26,7 @@ abstract class BaseAction extends Action
     public $modelClass;
 
     /**
-     * Callable function to get for values primary key
-     * @var integer
-     */
-    public $modelPk;
-
-    /**
-     * The route which will be transferred after the user action
+     * The route which will be redirected after the user action
      * @var string|array|callable
      */
     public $redirectUrl;
@@ -44,22 +38,31 @@ abstract class BaseAction extends Action
     public $scenario = Model::SCENARIO_DEFAULT;
 
     /**
-     * Name of primary key
+     * The name of the GET parameter that stores the primary key of the model
      * @var string
      */
     public $pkName = 'id';
 
     /**
+     * Is called when a successful result
      * @var callable|bool;
      */
     public $successCallback;
 
     /**
+     * Is called when a failed result
      * @var callable|bool;
      */
     public $errorCallback;
 
     /**
+     * The primary key value of current model
+     * @var integer
+     */
+    private $_modelPk;
+
+    /**
+     * @inheritdoc
      * @throws InvalidConfigException
      */
     public function init()
@@ -69,6 +72,54 @@ abstract class BaseAction extends Action
         if ($this->modelClass == null) {
             throw new InvalidConfigException('Property "modelClass" must be contain model class name.');
         }
+    }
+
+    /**
+     * Set model primary key
+     * @param $value
+     */
+    public function setModelPk($value)
+    {
+        $this->_modelPk = $value;
+    }
+
+    /**
+     * Get primary key of current handling model
+     * @param bool $throwException
+     * @return string
+     * @throws \yii\web\BadRequestHttpException
+     */
+    public function getModelPk($throwException = true)
+    {
+        if ($this->_modelPk == null) {
+            $this->_modelPk = Yii::$app->request->get($this->pkName);
+        }
+
+        if ($this->_modelPk == null && $throwException) {
+            HttpError::the400();
+        }
+
+        return $this->_modelPk;
+    }
+
+    /**
+     * Finding model by primary key
+     * @param $pk
+     * @param bool $throwException
+     * @return ActiveRecord
+     * @throws \yii\web\NotFoundHttpException
+     */
+    public function findModel($pk, $throwException = true)
+    {
+        /** @var ActiveRecord $model */
+        $model = $this->modelClass;
+        $model = $model::findOne($pk);
+
+        if (empty($model) && $throwException) {
+            HttpError::the404();
+        }
+
+        return $model;
     }
 
     /**
@@ -91,43 +142,5 @@ abstract class BaseAction extends Action
         /** @var Controller $controller */
         $controller = $this->controller;
         return $controller->redirect($this->redirectUrl);
-    }
-
-    /**
-     * @param bool $throwException
-     * @return string
-     * @throws \yii\web\BadRequestHttpException
-     */
-    public function getModelPk($throwException = true)
-    {
-        if ($this->modelPk == null) {
-            $this->modelPk = Yii::$app->request->get($this->pkName);
-        }
-
-        if ($this->modelPk == null && $throwException) {
-            HttpError::the400();
-        }
-
-        return $this->modelPk;
-    }
-
-    /**
-     * Find model by Primary key
-     * @param $pk
-     * @param bool $throwException
-     * @return ActiveRecord
-     * @throws \yii\web\NotFoundHttpException
-     */
-    public function findModel($pk, $throwException = true)
-    {
-        /** @var ActiveRecord $model */
-        $model = $this->modelClass;
-        $model = $model::findOne($pk);
-
-        if (empty($model) && $throwException) {
-            HttpError::the404();
-        }
-
-        return $model;
     }
 }
