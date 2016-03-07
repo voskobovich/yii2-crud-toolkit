@@ -2,6 +2,7 @@
 
 namespace voskobovich\crud\forms;
 
+use voskobovich\base\interfaces\ModelInterface;
 use voskobovich\base\traits\ModelTrait;
 use yii\base\Model;
 
@@ -10,7 +11,7 @@ use yii\base\Model;
  * Class IndexFormAbstract
  * @package voskobovich\crud\forms
  */
-abstract class IndexFormAbstract extends Model
+abstract class IndexFormAbstract extends Model implements ModelInterface
 {
     use ModelTrait;
 

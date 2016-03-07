@@ -2,6 +2,7 @@
 
 namespace voskobovich\crud\forms;
 
+use voskobovich\base\interfaces\ModelInterface;
 use voskobovich\base\traits\ModelTrait;
 use Yii;
 use yii\base\InvalidConfigException;
@@ -19,7 +20,7 @@ use yii\db\ActiveRecord;
  * @property ActiveRecord $_source
  * @property ActiveRecord $source
  */
-abstract class FindableFormAbstract extends Model
+abstract class FindableFormAbstract extends Model implements ModelInterface
 {
     use ModelTrait;
 
