@@ -56,7 +56,7 @@ class RelationAction extends BaseAction
         $model = $this->findModel($pk);
 
         /** @var RelationFormAbstract $form */
-        $form = new $this->formClass;
+        $form = Yii::createObject($this->formClass);
         $form->scenario = $this->scenario;
 
         $params = Yii::$app->request->get();

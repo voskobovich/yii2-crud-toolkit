@@ -39,7 +39,7 @@ class CreateAction extends BaseAction
     public function run()
     {
         /** @var ActiveRecord $model */
-        $model = new $this->modelClass;
+        $model = Yii::createObject($this->modelClass);
         $model->scenario = $this->scenario;
 
         $params = Yii::$app->getRequest()->getBodyParams();

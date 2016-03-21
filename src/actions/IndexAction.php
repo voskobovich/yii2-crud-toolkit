@@ -39,7 +39,7 @@ class IndexAction extends BaseAction
     public function run()
     {
         /** @var IndexFormAbstract $model */
-        $model = new $this->modelClass;
+        $model = Yii::createObject($this->modelClass);
         $model->scenario = $this->scenario;
 
         $params = Yii::$app->request->get();
