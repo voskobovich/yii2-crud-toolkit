@@ -146,9 +146,9 @@ abstract class FindableFormAbstract extends Model implements ModelInterface
     public function validate($attributeNames = null, $clearErrors = true)
     {
         if (parent::validate($attributeNames, $clearErrors)) {
-            $source = $this->source;
-
             $this->populateSourceAttributes();
+
+            $source = $this->source;
 
             if (!$source->validate()) {
                 if ($this->defaultAttribute && $source->hasErrors()) {
