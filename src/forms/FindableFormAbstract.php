@@ -93,7 +93,7 @@ abstract class FindableFormAbstract extends Model implements ModelInterface
     {
         $attributes = array_intersect_key(
             $this->_source->getAttributes(),
-            array_flip($this->safeAttributes())
+            $this->getAttributes()
         );
         $this->setAttributes($attributes, false);
     }
