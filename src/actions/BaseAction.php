@@ -57,9 +57,9 @@ abstract class BaseAction extends Action
 
     /**
      * The primary key value of current model
-     * @var integer
+     * @var integer|string|callable|boolean
      */
-    private $_modelPk;
+    private $_modelPk = false;
 
     /**
      * @inheritdoc
@@ -91,7 +91,11 @@ abstract class BaseAction extends Action
      */
     public function getModelPk($throwException = true)
     {
-        if ($this->_modelPk == null) {
+        if ($this->_modelPk !== false && is_callable($this->_modelPk)) {
+            $this->_modelPk = call_user_func($this->_modelPk, $this);
+        }
+
+        if ($this->_modelPk === false) {
             $this->_modelPk = Yii::$app->request->get($this->pkName);
         }
 
