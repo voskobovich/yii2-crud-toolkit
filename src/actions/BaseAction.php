@@ -56,6 +56,21 @@ abstract class BaseAction extends Action
     public $errorCallback;
 
     /**
+     * This method is called right before `run()` is executed.
+     * You may override this method to do preparation work for the action run.
+     * If the method returns false, it will cancel the action.
+     * @var callable
+     */
+    public $beforeRun;
+
+    /**
+     * This method is called right after `run()` is executed.
+     * You may override this method to do post-processing work for the action run.
+     * @var callable
+     */
+    public $afterRun;
+
+    /**
      * The primary key value of current model
      * @var integer|string|callable|boolean
      */
@@ -146,5 +161,29 @@ abstract class BaseAction extends Action
         /** @var Controller $controller */
         $controller = $this->controller;
         return $controller->redirect($this->redirectUrl);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function beforeRun()
+    {
+        if (is_callable($this->beforeRun)) {
+            return call_user_func($this->beforeRun, $this);
+        }
+
+        return parent::beforeRun();
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function afterRun()
+    {
+        if (is_callable($this->afterRun)) {
+            call_user_func($this->afterRun, $this);
+        }
+
+        parent::afterRun();
     }
 }
