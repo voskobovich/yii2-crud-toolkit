@@ -40,9 +40,9 @@ class DeleteAction extends BaseAction
 
         /** @var ActiveRecord $model */
         $model = $this->findModel($pk, false);
-        $model->scenario = $this->scenario;
 
-        if ($model) {
+        if (!empty($model)) {
+            $model->scenario = $this->scenario;
             try {
                 if (is_callable($this->handler)) {
                     $result = call_user_func($this->handler, $model, $this);
