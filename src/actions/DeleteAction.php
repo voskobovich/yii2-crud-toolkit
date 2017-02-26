@@ -6,33 +6,34 @@ use Yii;
 use yii\db\ActiveRecord;
 use yii\db\Exception;
 
-
 /**
- * Class DeleteAction
- * @package voskobovich\crud\actions
+ * Class DeleteAction.
  */
 class DeleteAction extends BaseAction
 {
     /**
-     * The route which will be redirected after the user action
+     * The route which will be redirected after the user action.
+     *
      * @var string|array|callable
      */
     public $redirectUrl = ['index'];
 
     /**
-     * A callback which defines the logic of the removal of the object
+     * A callback which defines the logic of the removal of the object.
+     *
      * @var callable;
      */
     public $handler;
 
     /**
-     * Is called when a throw exception
+     * Is called when a throw exception.
+     *
      * @var callable|bool;
      */
     public $exceptionCallback;
 
     /**
-     * @return null
+     * {@inheritdoc}
      */
     public function run()
     {

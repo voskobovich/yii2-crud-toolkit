@@ -6,18 +6,18 @@ use voskobovich\base\interfaces\ModelInterface;
 use voskobovich\base\traits\ModelTrait;
 use yii\base\Model;
 
-
 /**
- * Class IndexFormAbstract
- * @package voskobovich\crud\forms
+ * Class IndexFormAbstract.
  */
 abstract class IndexFormAbstract extends Model implements ModelInterface
 {
     use ModelTrait;
 
     /**
-     * Query building
+     * Query building.
+     *
      * @param $params
+     *
      * @return \yii\data\ActiveDataProvider
      */
     abstract public function search($params);

@@ -2,12 +2,8 @@
 
 namespace voskobovich\crud\controllers;
 
-use Yii;
-
-
 /**
- * Class Controller
- * @package voskobovich\crud\controllers
+ * Class Controller.
  */
 class Controller extends AccessController
 {
@@ -22,7 +18,7 @@ class Controller extends AccessController
     public $modelSearchClass;
 
     /**
-     * Action routs
+     * Action routs.
      */
     public $urlAfterCreate = ['update', 'id' => ':primaryKey'];
     public $urlAfterUpdate = ['update', 'id' => ':primaryKey'];
@@ -41,17 +37,17 @@ class Controller extends AccessController
             'create' => [
                 'class' => 'voskobovich\crud\actions\CreateAction',
                 'modelClass' => $this->modelClass,
-                'redirectUrl' => $this->urlAfterCreate
+                'redirectUrl' => $this->urlAfterCreate,
             ],
             'update' => [
                 'class' => 'voskobovich\crud\actions\UpdateAction',
                 'modelClass' => $this->modelClass,
-                'redirectUrl' => $this->urlAfterUpdate
+                'redirectUrl' => $this->urlAfterUpdate,
             ],
             'delete' => [
                 'class' => 'voskobovich\crud\actions\DeleteAction',
                 'modelClass' => $this->modelClass,
-                'redirectUrl' => $this->urlAfterDelete
+                'redirectUrl' => $this->urlAfterDelete,
             ],
         ];
     }

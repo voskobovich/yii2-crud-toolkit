@@ -5,22 +5,22 @@ namespace voskobovich\crud\actions;
 use yii\db\ActiveRecord;
 use yii\web\Controller;
 
-
 /**
- * Class ViewAction
- * @package voskobovich\crud\actions
+ * Class ViewAction.
  */
 class ViewAction extends BaseAction
 {
     /**
-     * View name
+     * View name.
+     *
      * @var string
      */
     public $viewFile = 'view';
 
     /**
-     * @return string
      * @throws \yii\web\NotFoundHttpException
+     *
+     * @return string
      */
     public function run()
     {
@@ -33,7 +33,7 @@ class ViewAction extends BaseAction
         $controller = $this->controller;
 
         return $controller->render($this->viewFile, [
-            'model' => $model
+            'model' => $model,
         ]);
     }
 }

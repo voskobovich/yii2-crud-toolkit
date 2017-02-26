@@ -8,34 +8,36 @@ use yii\web\Controller;
 use yii\web\Response;
 use yii\widgets\ActiveForm;
 
-
 /**
- * Class UpdateAction
- * @package voskobovich\crud\actions
+ * Class UpdateAction.
  */
 class UpdateAction extends BaseAction
 {
     /**
-     * The route which will be redirected after the user action
+     * The route which will be redirected after the user action.
+     *
      * @var string|array|callable
      */
     public $redirectUrl = ['update', 'id' => ':primaryKey'];
 
     /**
-     * View name
+     * View name.
+     *
      * @var string
      */
     public $viewFile = 'update';
 
     /**
-     * Enable or disable ajax validation handler
+     * Enable or disable ajax validation handler.
+     *
      * @var bool
      */
     public $enableAjaxValidation = true;
 
     /**
-     * @return string
      * @throws \yii\web\NotFoundHttpException
+     *
+     * @return string
      */
     public function run()
     {
@@ -49,6 +51,7 @@ class UpdateAction extends BaseAction
         if ($model->load($params)) {
             if ($this->enableAjaxValidation && Yii::$app->request->isAjax && !empty($params['ajax'])) {
                 Yii::$app->response->format = Response::FORMAT_JSON;
+
                 return ActiveForm::validate($model);
             }
 
@@ -77,8 +80,9 @@ class UpdateAction extends BaseAction
 
         /** @var Controller $controller */
         $controller = $this->controller;
+
         return $controller->render($this->viewFile, [
-            'model' => $model
+            'model' => $model,
         ]);
     }
 }

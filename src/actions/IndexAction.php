@@ -7,21 +7,20 @@ use Yii;
 use yii\base\InvalidConfigException;
 use yii\web\Controller;
 
-
 /**
- * Class IndexAction
- * @package voskobovich\crud\actions
+ * Class IndexAction.
  */
 class IndexAction extends BaseAction
 {
     /**
-     * View name
+     * View name.
+     *
      * @var string
      */
     public $viewFile = 'index';
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function init()
     {
@@ -33,8 +32,9 @@ class IndexAction extends BaseAction
     }
 
     /**
-     * @return string
      * @throws InvalidConfigException
+     *
+     * @return string
      */
     public function run()
     {
@@ -50,7 +50,7 @@ class IndexAction extends BaseAction
 
         return $controller->render($this->viewFile, [
             'model' => $model,
-            'dataProvider' => $dataProvider
+            'dataProvider' => $dataProvider,
         ]);
     }
 }

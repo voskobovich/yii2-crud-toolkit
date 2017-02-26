@@ -8,27 +8,28 @@ use yii\web\Controller;
 use yii\web\Response;
 use yii\widgets\ActiveForm;
 
-
 /**
- * Class CreateAction
- * @package voskobovich\crud\actions
+ * Class CreateAction.
  */
 class CreateAction extends BaseAction
 {
     /**
-     * The route which will be redirected after the user action
+     * The route which will be redirected after the user action.
+     *
      * @var string|array|callable
      */
     public $redirectUrl = ['update', 'id' => ':primaryKey'];
 
     /**
-     * View name
+     * View name.
+     *
      * @var string
      */
     public $viewFile = 'create';
 
     /**
-     * Enable or disable ajax validation handler
+     * Enable or disable ajax validation handler.
+     *
      * @var bool
      */
     public $enableAjaxValidation = true;
@@ -46,6 +47,7 @@ class CreateAction extends BaseAction
         if ($model->load($params)) {
             if ($this->enableAjaxValidation && Yii::$app->request->isAjax && !empty($params['ajax'])) {
                 Yii::$app->response->format = Response::FORMAT_JSON;
+
                 return ActiveForm::validate($model);
             }
 
@@ -76,7 +78,7 @@ class CreateAction extends BaseAction
         $controller = $this->controller;
 
         return $controller->render($this->viewFile, [
-            'model' => $model
+            'model' => $model,
         ]);
     }
 }

@@ -19,3 +19,12 @@ or add
 ```
 
 to the require section of your `composer.json` file.
+
+CODE ECOLOGY
+--
+
+To auto fix the code format:
+
+```bash
+./vendor/bin/php-cs-fixer fix
+```

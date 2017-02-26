@@ -8,27 +8,27 @@ use yii\base\InvalidConfigException;
 use yii\db\ActiveRecord;
 use yii\web\Controller;
 
-
 /**
- * Class RelationAction
- * @package voskobovich\crud\actions
+ * Class RelationAction.
  */
 class RelationAction extends BaseAction
 {
     /**
-     * Class to use search relation records
+     * Class to use search relation records.
+     *
      * @var string
      */
     public $formClass;
 
     /**
-     * View name
+     * View name.
+     *
      * @var string
      */
     public $viewFile;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function init()
     {
@@ -44,9 +44,10 @@ class RelationAction extends BaseAction
     }
 
     /**
-     * @return string
      * @throws InvalidConfigException
      * @throws \yii\web\NotFoundHttpException
+     *
+     * @return string
      */
     public function run()
     {
@@ -68,7 +69,7 @@ class RelationAction extends BaseAction
         return $controller->render($this->viewFile, [
             'model' => $model,
             'form' => $form,
-            'dataProvider' => $dataProvider
+            'dataProvider' => $dataProvider,
         ]);
     }
 }

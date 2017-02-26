@@ -2,20 +2,18 @@
 
 namespace voskobovich\crud\controllers;
 
-use Yii;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 
-
 /**
- * Class AccessController
- * @package voskobovich\crud\controllers
+ * Class AccessController.
  */
 class AccessController extends Controller
 {
     /**
-     * Allow access for roles
+     * Allow access for roles.
+     *
      * @var array
      */
     public $allowRoles = ['admin'];

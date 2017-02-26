@@ -13,45 +13,49 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\web\Response;
 
-
 /**
- * Class BaseAction
- * @package voskobovich\crud\actions
+ * Class BaseAction.
  */
 abstract class BaseAction extends Action
 {
     /**
-     * Class to use to locate the supplied data ids
+     * Class to use to locate the supplied data ids.
+     *
      * @var string
      */
     public $modelClass;
 
     /**
-     * The route which will be redirected after the user action
+     * The route which will be redirected after the user action.
+     *
      * @var string|array|callable
      */
     public $redirectUrl;
 
     /**
      * The scenario to be assigned to the model before it is validated and updated.
+     *
      * @var string
      */
     public $scenario = Model::SCENARIO_DEFAULT;
 
     /**
-     * The name of the GET parameter that stores the primary key of the model
+     * The name of the GET parameter that stores the primary key of the model.
+     *
      * @var string
      */
     public $primaryKeyParam = 'id';
 
     /**
-     * Is called when a successful result
+     * Is called when a successful result.
+     *
      * @var callable|bool;
      */
     public $successCallback;
 
     /**
-     * Is called when a failed result
+     * Is called when a failed result.
+     *
      * @var callable|bool;
      */
     public $errorCallback;
@@ -60,6 +64,7 @@ abstract class BaseAction extends Action
      * This method is called right before `run()` is executed.
      * You may override this method to do preparation work for the action run.
      * If the method returns false, it will cancel the action.
+     *
      * @var callable
      */
     public $beforeRun;
@@ -67,24 +72,28 @@ abstract class BaseAction extends Action
     /**
      * This method is called right after `run()` is executed.
      * You may override this method to do post-processing work for the action run.
+     *
      * @var callable
      */
     public $afterRun;
 
     /**
-     * The primary key value of current model
-     * @var integer|string|callable|boolean
+     * The primary key value of current model.
+     *
+     * @var int|string|callable|bool
      */
     private $_primaryKey = false;
 
     /**
-     * Previously loaded object of modelClass
+     * Previously loaded object of modelClass.
+     *
      * @var ActiveRecord|bool
      */
     private $_loadedModel = false;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
+     *
      * @throws InvalidConfigException
      */
     public function init()
@@ -97,7 +106,8 @@ abstract class BaseAction extends Action
     }
 
     /**
-     * Set model primary key
+     * Set model primary key.
+     *
      * @param $value
      */
     public function setPrimaryKey($value)
@@ -106,10 +116,13 @@ abstract class BaseAction extends Action
     }
 
     /**
-     * Get primary key of current handling model
+     * Get primary key of current handling model.
+     *
      * @param bool $throwException
-     * @return string
+     *
      * @throws \yii\web\BadRequestHttpException
+     *
+     * @return string
      */
     public function getPrimaryKey($throwException = true)
     {
@@ -129,7 +142,8 @@ abstract class BaseAction extends Action
     }
 
     /**
-     * Previously loaded object of modelClass
+     * Previously loaded object of modelClass.
+     *
      * @param $value
      */
     public function setLoadedModel($value)
@@ -138,11 +152,14 @@ abstract class BaseAction extends Action
     }
 
     /**
-     * Finding model by primary key
+     * Finding model by primary key.
+     *
      * @param $condition
      * @param bool $throwException
-     * @return ActiveRecord|null
+     *
      * @throws \yii\web\NotFoundHttpException
+     *
+     * @return ActiveRecord|null
      */
     public function loadModel($condition, $throwException = true)
     {
@@ -162,6 +179,7 @@ abstract class BaseAction extends Action
 
     /**
      * @var Model $model
+     *
      * @return Response
      */
     protected function redirect($model)
@@ -179,11 +197,12 @@ abstract class BaseAction extends Action
 
         /** @var Controller $controller */
         $controller = $this->controller;
+
         return $controller->redirect($this->redirectUrl);
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function beforeRun()
     {
@@ -195,7 +214,7 @@ abstract class BaseAction extends Action
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function afterRun()
     {
