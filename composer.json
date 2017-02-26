@@ -23,7 +23,8 @@
   "require": {
     "php": ">=5.4.0",
     "yiisoft/yii2": "^2.0.0",
-    "voskobovich/yii2-base-toolkit": "^2.3.0"
+    "voskobovich/yii2-base-toolkit": "^2.3.0",
+    "friendsofphp/php-cs-fixer": "^2"
   },
   "autoload": {
     "psr-4": {

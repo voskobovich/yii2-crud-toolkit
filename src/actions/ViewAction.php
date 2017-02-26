@@ -2,7 +2,6 @@
 
 namespace voskobovich\crud\actions;
 
-use Yii;
 use yii\db\ActiveRecord;
 use yii\web\Controller;
 
@@ -25,10 +24,10 @@ class ViewAction extends BaseAction
      */
     public function run()
     {
-        $pk = $this->getModelPk();
+        $pk = $this->getPrimaryKey();
 
         /** @var ActiveRecord $model */
-        $model = $this->findModel($pk);
+        $model = $this->loadModel($pk);
 
         /** @var Controller $controller */
         $controller = $this->controller;

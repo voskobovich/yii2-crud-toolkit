@@ -36,10 +36,10 @@ class DeleteAction extends BaseAction
      */
     public function run()
     {
-        $pk = $this->getModelPk();
+        $pk = $this->getPrimaryKey();
 
         /** @var ActiveRecord $model */
-        $model = $this->findModel($pk, false);
+        $model = $this->loadModel($pk, false);
 
         if (!empty($model)) {
             $model->scenario = $this->scenario;

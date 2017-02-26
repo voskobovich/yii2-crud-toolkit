@@ -50,10 +50,10 @@ class RelationAction extends BaseAction
      */
     public function run()
     {
-        $pk = $this->getModelPk();
+        $pk = $this->getPrimaryKey();
 
         /** @var ActiveRecord $model */
-        $model = $this->findModel($pk);
+        $model = $this->loadModel($pk);
 
         /** @var RelationFormAbstract $form */
         $form = Yii::createObject($this->formClass);
