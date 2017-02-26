@@ -18,7 +18,7 @@ abstract class RelationFormAbstract extends Model implements ModelInterface
      * Query building.
      *
      * @param ActiveRecord $model
-     * @param array $params
+     * @param array        $params
      *
      * @return \yii\data\ActiveDataProvider
      */

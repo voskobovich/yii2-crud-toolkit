@@ -41,10 +41,14 @@ class UpdateAction extends BaseAction
      */
     public function run()
     {
-        $pk = $this->getPrimaryKey();
+        $model = $this->getLoadedModel();
 
-        /** @var ActiveRecord $model */
-        $model = $this->loadModel($pk);
+        if (empty($model)) {
+            $pk = $this->getPrimaryKey();
+
+            /** @var ActiveRecord $model */
+            $model = $this->findModel($pk);
+        }
         $model->scenario = $this->scenario;
 
         $params = Yii::$app->getRequest()->getBodyParams();

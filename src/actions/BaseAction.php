@@ -5,6 +5,7 @@ namespace voskobovich\crud\actions;
 use Yii;
 use yii\base\Action;
 use yii\base\InvalidConfigException;
+use yii\base\InvalidParamException;
 use yii\base\Model;
 use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
@@ -87,9 +88,9 @@ abstract class BaseAction extends Action
     /**
      * Previously loaded object of modelClass.
      *
-     * @var ActiveRecord|bool
+     * @var ActiveRecord|null
      */
-    private $_loadedModel = false;
+    private $_loadedModel = null;
 
     /**
      * {@inheritdoc}
@@ -142,13 +143,29 @@ abstract class BaseAction extends Action
     }
 
     /**
-     * Previously loaded object of modelClass.
+     * Set previously loaded object of modelClass.
      *
      * @param $value
      */
     public function setLoadedModel($value)
     {
+        if ($this->_loadedModel && false === is_a($this->_loadedModel, $this->modelClass)) {
+            throw new InvalidParamException(
+                'Previously loaded object must be of the same type that is specified "modelClass".'
+            );
+        }
+
         $this->_loadedModel = $value;
+    }
+
+    /**
+     * Get previously loaded object of modelClass.
+     *
+     * @return null|ActiveRecord
+     */
+    public function getLoadedModel()
+    {
+        return $this->_loadedModel;
     }
 
     /**
@@ -161,20 +178,18 @@ abstract class BaseAction extends Action
      *
      * @return ActiveRecord|null
      */
-    public function loadModel($condition, $throwException = true)
+    public function findModel($condition, $throwException = true)
     {
-        if (false === $this->_loadedModel) {
-            $this->_loadedModel = call_user_func(
-                [$this->modelClass, 'findOne'],
-                $condition
-            );
-        }
+        $model = call_user_func(
+            [$this->modelClass, 'findOne'],
+            $condition
+        );
 
-        if (empty($this->_loadedModel) && $throwException) {
+        if (empty($model) && $throwException) {
             throw new NotFoundHttpException('Page Not Found');
         }
 
-        return $this->_loadedModel;
+        return $model;
     }
 
     /**
