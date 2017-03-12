@@ -19,6 +19,13 @@ class DeleteAction extends BaseAction
     public $redirectUrl = ['index'];
 
     /**
+     * View name.
+     *
+     * @var string
+     */
+    public $viewFile = false;
+
+    /**
      * A callback which defines the logic of the removal of the object.
      *
      * @var callable;
@@ -77,6 +84,10 @@ class DeleteAction extends BaseAction
             }
         }
 
-        return $this->redirect($model);
+        if (false === $this->viewFile) {
+            return $this->redirect($model);
+        }
+
+        return $this->render();
     }
 }
