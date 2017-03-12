@@ -69,10 +69,6 @@ class CreateAction extends BaseAction
             }
         }
 
-        if (!$this->viewFile) {
-            return null;
-        }
-
         return $this->render([
             'model' => $model,
         ]);
