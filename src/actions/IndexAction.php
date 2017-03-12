@@ -5,7 +5,6 @@ namespace voskobovich\crud\actions;
 use voskobovich\crud\forms\IndexFormAbstract;
 use Yii;
 use yii\base\InvalidConfigException;
-use yii\web\Controller;
 
 /**
  * Class IndexAction.
@@ -45,10 +44,7 @@ class IndexAction extends BaseAction
         $params = Yii::$app->request->get();
         $dataProvider = $model->search($params);
 
-        /** @var Controller $controller */
-        $controller = $this->controller;
-
-        return $controller->render($this->viewFile, [
+        return $this->render([
             'model' => $model,
             'dataProvider' => $dataProvider,
         ]);

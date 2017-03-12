@@ -4,7 +4,6 @@ namespace voskobovich\crud\actions;
 
 use Yii;
 use yii\db\ActiveRecord;
-use yii\web\Controller;
 use yii\web\Response;
 use yii\widgets\ActiveForm;
 
@@ -82,10 +81,7 @@ class UpdateAction extends BaseAction
             return null;
         }
 
-        /** @var Controller $controller */
-        $controller = $this->controller;
-
-        return $controller->render($this->viewFile, [
+        return $this->render([
             'model' => $model,
         ]);
     }

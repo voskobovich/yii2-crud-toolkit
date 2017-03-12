@@ -2,9 +2,8 @@
 
 namespace voskobovich\crud\actions;
 
-use yii\db\ActiveRecord;
 use Yii;
-use yii\web\Controller;
+use yii\db\ActiveRecord;
 use yii\web\Response;
 use yii\widgets\ActiveForm;
 
@@ -74,10 +73,7 @@ class CreateAction extends BaseAction
             return null;
         }
 
-        /** @var Controller $controller */
-        $controller = $this->controller;
-
-        return $controller->render($this->viewFile, [
+        return $this->render([
             'model' => $model,
         ]);
     }

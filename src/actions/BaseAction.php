@@ -27,6 +27,20 @@ abstract class BaseAction extends Action
     public $modelClass;
 
     /**
+     * View name.
+     *
+     * @var string
+     */
+    public $viewFile = 'default';
+
+    /**
+     * View additional params.
+     *
+     * @var array
+     */
+    public $viewParams = [];
+
+    /**
      * The route which will be redirected after the user action.
      *
      * @var string|array|callable
@@ -238,5 +252,25 @@ abstract class BaseAction extends Action
         }
 
         parent::afterRun();
+    }
+
+    /**
+     * Render a view file.
+     *
+     * @param array $params
+     *
+     * @return string
+     */
+    public function render($params = [])
+    {
+        $viewParams = array_merge(
+            $this->viewParams,
+            $params
+        );
+
+        return $this->controller->render(
+            $this->viewFile,
+            $viewParams
+        );
     }
 }

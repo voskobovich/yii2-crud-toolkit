@@ -6,7 +6,6 @@ use voskobovich\crud\forms\RelationFormAbstract;
 use Yii;
 use yii\base\InvalidConfigException;
 use yii\db\ActiveRecord;
-use yii\web\Controller;
 
 /**
  * Class RelationAction.
@@ -67,10 +66,7 @@ class RelationAction extends BaseAction
         $params = Yii::$app->request->get();
         $dataProvider = $form->search($model, $params);
 
-        /** @var Controller $controller */
-        $controller = $this->controller;
-
-        return $controller->render($this->viewFile, [
+        return $this->render([
             'model' => $model,
             'form' => $form,
             'dataProvider' => $dataProvider,

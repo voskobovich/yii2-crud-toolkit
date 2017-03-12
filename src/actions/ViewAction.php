@@ -3,7 +3,6 @@
 namespace voskobovich\crud\actions;
 
 use yii\db\ActiveRecord;
-use yii\web\Controller;
 
 /**
  * Class ViewAction.
@@ -33,10 +32,7 @@ class ViewAction extends BaseAction
             $model = $this->findModel($pk);
         }
 
-        /** @var Controller $controller */
-        $controller = $this->controller;
-
-        return $controller->render($this->viewFile, [
+        return $this->render([
             'model' => $model,
         ]);
     }
