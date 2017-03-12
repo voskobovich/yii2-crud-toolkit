@@ -12,9 +12,7 @@ use yii\base\InvalidConfigException;
 class IndexAction extends BaseAction
 {
     /**
-     * View name.
-     *
-     * @var string
+     * {@inheritdoc}
      */
     public $viewFile = 'index';
 

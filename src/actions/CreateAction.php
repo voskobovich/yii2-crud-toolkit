@@ -13,16 +13,12 @@ use yii\widgets\ActiveForm;
 class CreateAction extends BaseAction
 {
     /**
-     * The route which will be redirected after the user action.
-     *
-     * @var string|array|callable
+     * {@inheritdoc}
      */
     public $redirectUrl = ['update', 'id' => ':primaryKey'];
 
     /**
-     * View name.
-     *
-     * @var string
+     * {@inheritdoc}
      */
     public $viewFile = 'create';
 

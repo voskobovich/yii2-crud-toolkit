@@ -20,9 +20,7 @@ class RelationAction extends BaseAction
     public $formClass;
 
     /**
-     * View name.
-     *
-     * @var string
+     * {@inheritdoc}
      */
     public $viewFile;
 

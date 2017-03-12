@@ -10,9 +10,7 @@ use yii\db\ActiveRecord;
 class ViewAction extends BaseAction
 {
     /**
-     * View name.
-     *
-     * @var string
+     * {@inheritdoc}
      */
     public $viewFile = 'view';
 

@@ -12,16 +12,12 @@ use yii\db\Exception;
 class DeleteAction extends BaseAction
 {
     /**
-     * The route which will be redirected after the user action.
-     *
-     * @var string|array|callable
+     * {@inheritdoc}
      */
     public $redirectUrl = ['index'];
 
     /**
-     * View name.
-     *
-     * @var string
+     * {@inheritdoc}
      */
     public $viewFile = false;
 
