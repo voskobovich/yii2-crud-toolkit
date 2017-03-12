@@ -27,14 +27,14 @@ abstract class BaseAction extends Action
     public $modelClass;
 
     /**
-     * View name.
+     * The name of view file.
      *
      * @var string
      */
     public $viewFile = 'default';
 
     /**
-     * View additional params.
+     * The view additional params.
      *
      * @var array
      */
@@ -259,10 +259,14 @@ abstract class BaseAction extends Action
      *
      * @param array $params
      *
-     * @return string
+     * @return string|null
      */
     public function render($params = [])
     {
+        if (false === $this->viewFile) {
+            return null;
+        }
+
         $viewParams = array_merge(
             $this->viewParams,
             $params
