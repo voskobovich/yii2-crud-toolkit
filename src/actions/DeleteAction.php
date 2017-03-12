@@ -40,20 +40,41 @@ class DeleteAction extends BaseAction
     public $exceptionCallback;
 
     /**
+     * The flash key for success flash message.
+     *
+     * @var string
+     */
+    public $flashSuccessKey = 'delete:success';
+
+    /**
+     * The flash key for error flash message.
+     *
+     * @var string
+     */
+    public $flashErrorKey = 'delete:error';
+
+    /**
+     * The flash key for exception flash message.
+     *
+     * @var string
+     */
+    public $flashExceptionKey = 'delete:exception';
+
+    /**
      * {@inheritdoc}
      */
     public function run()
     {
         $model = $this->getLoadedModel();
 
-        if (empty($model)) {
-            $pk = $this->getPrimaryKey();
+        if (null === $model) {
+            $primaryKey = $this->getPrimaryKey();
 
             /** @var ActiveRecord $model */
-            $model = $this->findModel($pk, false);
+            $model = $this->findModel($primaryKey, false);
         }
 
-        if (!empty($model)) {
+        if (null !== $model) {
             $model->scenario = $this->scenario;
             try {
                 if (is_callable($this->handler)) {
@@ -65,21 +86,21 @@ class DeleteAction extends BaseAction
                 if ($result) {
                     if (is_callable($this->successCallback)) {
                         call_user_func($this->successCallback, $model, $this);
-                    } elseif ($this->successCallback !== false) {
-                        Yii::$app->session->setFlash('delete:success');
+                    } elseif (false !== $this->successCallback) {
+                        Yii::$app->session->setFlash($this->flashSuccessKey);
                     }
                 } else {
                     if (is_callable($this->errorCallback)) {
                         call_user_func($this->errorCallback, $model, $this);
-                    } elseif ($this->errorCallback !== false) {
-                        Yii::$app->session->setFlash('delete:error');
+                    } elseif (false !== $this->errorCallback) {
+                        Yii::$app->session->setFlash($this->flashErrorKey);
                     }
                 }
             } catch (Exception $ex) {
                 if (is_callable($this->exceptionCallback)) {
                     call_user_func($this->exceptionCallback, $model, $this, $ex);
-                } elseif ($this->exceptionCallback !== false) {
-                    Yii::$app->session->setFlash('delete:exception');
+                } elseif (false !== $this->exceptionCallback) {
+                    Yii::$app->session->setFlash($this->flashExceptionKey);
                 }
             }
         }
@@ -88,6 +109,8 @@ class DeleteAction extends BaseAction
             return $this->redirect($model);
         }
 
-        return $this->render();
+        return $this->render([
+            'model' => $model,
+        ]);
     }
 }

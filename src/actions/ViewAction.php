@@ -25,11 +25,11 @@ class ViewAction extends BaseAction
     {
         $model = $this->getLoadedModel();
 
-        if (empty($model)) {
-            $pk = $this->getPrimaryKey();
+        if (null === $model) {
+            $primaryKey = $this->getPrimaryKey();
 
             /** @var ActiveRecord $model */
-            $model = $this->findModel($pk);
+            $model = $this->findModel($primaryKey);
         }
 
         return $this->render([

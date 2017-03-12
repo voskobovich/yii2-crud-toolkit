@@ -115,7 +115,7 @@ abstract class BaseAction extends Action
     {
         parent::init();
 
-        if (empty($this->modelClass)) {
+        if (null === $this->modelClass) {
             throw new InvalidConfigException('Property "modelClass" must be contain model class name.');
         }
     }
@@ -199,7 +199,7 @@ abstract class BaseAction extends Action
             $condition
         );
 
-        if (empty($model) && $throwException) {
+        if (null === $model && $throwException) {
             throw new NotFoundHttpException('Page Not Found');
         }
 

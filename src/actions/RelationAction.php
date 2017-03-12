@@ -52,7 +52,7 @@ class RelationAction extends BaseAction
     {
         $model = $this->getLoadedModel();
 
-        if (empty($model)) {
+        if (null === $model) {
             $pk = $this->getPrimaryKey();
 
             /** @var ActiveRecord $model */

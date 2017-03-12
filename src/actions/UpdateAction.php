@@ -34,6 +34,20 @@ class UpdateAction extends BaseAction
     public $enableAjaxValidation = true;
 
     /**
+     * The flash key for success flash message.
+     *
+     * @var string
+     */
+    public $flashSuccessKey = 'update:success';
+
+    /**
+     * The flash key for error flash message.
+     *
+     * @var string
+     */
+    public $flashErrorKey = 'update:error';
+
+    /**
      * @throws \yii\web\NotFoundHttpException
      *
      * @return string
@@ -42,7 +56,7 @@ class UpdateAction extends BaseAction
     {
         $model = $this->getLoadedModel();
 
-        if (empty($model)) {
+        if (null === $model) {
             $pk = $this->getPrimaryKey();
 
             /** @var ActiveRecord $model */
@@ -61,8 +75,8 @@ class UpdateAction extends BaseAction
             if ($model->save()) {
                 if (is_callable($this->successCallback)) {
                     call_user_func($this->successCallback, $model, $this);
-                } elseif ($this->successCallback !== false) {
-                    Yii::$app->session->setFlash('update:success');
+                } elseif (false !== $this->successCallback) {
+                    Yii::$app->session->setFlash($this->flashSuccessKey);
                 }
 
                 if ($this->redirectUrl) {
@@ -71,8 +85,8 @@ class UpdateAction extends BaseAction
             } else {
                 if (is_callable($this->errorCallback)) {
                     call_user_func($this->errorCallback, $model, $this);
-                } elseif ($this->errorCallback !== false) {
-                    Yii::$app->session->setFlash('update:error');
+                } elseif (false !== $this->errorCallback) {
+                    Yii::$app->session->setFlash($this->flashErrorKey);
                 }
             }
         }
