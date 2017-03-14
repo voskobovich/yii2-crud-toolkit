@@ -18,6 +18,8 @@ class ViewAction extends BaseAction
      * @throws \yii\web\NotFoundHttpException
      *
      * @return string
+     * @throws \yii\base\InvalidParamException
+     * @throws \yii\web\BadRequestHttpException
      */
     public function run()
     {
