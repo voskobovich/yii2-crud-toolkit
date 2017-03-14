@@ -64,23 +64,37 @@ abstract class BaseAction extends Action
     /**
      * Is called when a successful result.
      *
-     * @var callable|bool;
+     * @var callable|null;
      */
     public $successCallback;
 
     /**
+     * The flash key for success flash message.
+     *
+     * @var string
+     */
+    public $flashSuccessKey = 'success';
+
+    /**
      * Is called when a failed result.
      *
-     * @var callable|bool;
+     * @var callable|null;
      */
     public $errorCallback;
+
+    /**
+     * The flash key for error flash message.
+     *
+     * @var string
+     */
+    public $flashErrorKey = 'error';
 
     /**
      * This method is called right before `run()` is executed.
      * You may override this method to do preparation work for the action run.
      * If the method returns false, it will cancel the action.
      *
-     * @var callable
+     * @var callable|null
      */
     public $beforeRun;
 
@@ -88,7 +102,7 @@ abstract class BaseAction extends Action
      * This method is called right after `run()` is executed.
      * You may override this method to do post-processing work for the action run.
      *
-     * @var callable
+     * @var callable|null
      */
     public $afterRun;
 
@@ -160,6 +174,8 @@ abstract class BaseAction extends Action
      * Set previously loaded object of modelClass.
      *
      * @param $value
+     *
+     * @throws \yii\base\InvalidParamException
      */
     public function setLoadedModel($value)
     {
@@ -259,6 +275,8 @@ abstract class BaseAction extends Action
      *
      * @param array $params
      *
+     * @throws \yii\base\InvalidParamException
+     *
      * @return string|null
      */
     public function render($params = [])
@@ -276,5 +294,33 @@ abstract class BaseAction extends Action
             $this->viewFile,
             $viewParams
         );
+    }
+
+    /**
+     * Run success handler by model.
+     *
+     * @param ActiveRecord $model
+     */
+    protected function runSuccessHandler($model)
+    {
+        if (is_callable($this->successCallback)) {
+            call_user_func($this->successCallback, $model, $this);
+        } elseif (false === empty($this->flashSuccessKey)) {
+            Yii::$app->session->setFlash($this->flashSuccessKey);
+        }
+    }
+
+    /**
+     * Run error handler by model.
+     *
+     * @param ActiveRecord $model
+     */
+    protected function runErrorHandler($model)
+    {
+        if (is_callable($this->errorCallback)) {
+            call_user_func($this->errorCallback, $model, $this);
+        } elseif (false === empty($this->flashErrorKey)) {
+            Yii::$app->session->setFlash($this->flashErrorKey);
+        }
     }
 }
