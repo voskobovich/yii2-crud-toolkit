@@ -32,6 +32,7 @@ class IndexAction extends BaseAction
      * @throws InvalidConfigException
      *
      * @return string
+     * @throws \yii\base\InvalidParamException
      */
     public function run()
     {

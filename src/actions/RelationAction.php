@@ -29,7 +29,7 @@ class RelationAction extends BaseAction
      */
     public function init()
     {
-        if ($this->formClass == null) {
+        if (null === $this->formClass) {
             throw new InvalidConfigException('Property "formClass" must be contain form name with namespace.');
         }
 
@@ -45,6 +45,8 @@ class RelationAction extends BaseAction
      * @throws \yii\web\NotFoundHttpException
      *
      * @return string
+     * @throws \yii\base\InvalidParamException
+     * @throws \yii\web\BadRequestHttpException
      */
     public function run()
     {
