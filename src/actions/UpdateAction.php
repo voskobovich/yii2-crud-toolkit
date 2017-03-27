@@ -46,8 +46,8 @@ class UpdateAction extends BaseAction
     /**
      * @throws \yii\web\NotFoundHttpException
      * @throws \yii\base\InvalidParamException
-     * @throws \yii\base\InvalidConfigException
      * @throws \yii\web\BadRequestHttpException
+     * @throws \yii\base\InvalidConfigException
      *
      * @return string
      */
@@ -65,28 +65,20 @@ class UpdateAction extends BaseAction
 
         $params = Yii::$app->getRequest()->getBodyParams();
         if ($model->load($params)) {
-            if ($this->enableAjaxValidation && Yii::$app->request->isAjax && !empty($params['ajax'])) {
+            if ($this->enableAjaxValidation && Yii::$app->request->isAjax && false === empty($params['ajax'])) {
                 Yii::$app->response->format = Response::FORMAT_JSON;
 
                 return ActiveForm::validate($model);
             }
 
             if ($model->save()) {
-                if (is_callable($this->successCallback)) {
-                    call_user_func($this->successCallback, $model, $this);
-                } elseif (false !== $this->successCallback) {
-                    Yii::$app->session->setFlash($this->flashSuccessKey);
-                }
+                $this->runSuccessHandler($model);
 
-                if ($this->redirectUrl) {
+                if (false !== $this->redirectUrl) {
                     return $this->redirect($model);
                 }
-            } else {
-                if (is_callable($this->errorCallback)) {
-                    call_user_func($this->errorCallback, $model, $this);
-                } elseif (false !== $this->errorCallback) {
-                    Yii::$app->session->setFlash($this->flashErrorKey);
-                }
+            } elseif (false === $model->hasErrors()) {
+                $this->runErrorHandler($model);
             }
         }
 
