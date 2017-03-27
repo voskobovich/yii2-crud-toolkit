@@ -259,6 +259,8 @@ abstract class BaseAction extends Action
      *
      * @param array $params
      *
+     * @throws \yii\base\InvalidParamException
+     *
      * @return string|null
      */
     public function render($params = [])

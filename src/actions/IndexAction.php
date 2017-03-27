@@ -30,6 +30,7 @@ class IndexAction extends BaseAction
 
     /**
      * @throws InvalidConfigException
+     * @throws \yii\base\InvalidParamException
      *
      * @return string
      */

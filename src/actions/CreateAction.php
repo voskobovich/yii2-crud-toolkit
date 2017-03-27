@@ -44,6 +44,9 @@ class CreateAction extends BaseAction
     public $flashErrorKey = 'create:error';
 
     /**
+     * @throws \yii\base\InvalidParamException
+     * @throws \yii\base\InvalidConfigException
+     *
      * @return string
      */
     public function run()

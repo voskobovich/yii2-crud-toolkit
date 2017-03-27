@@ -16,6 +16,8 @@ class ViewAction extends BaseAction
 
     /**
      * @throws \yii\web\NotFoundHttpException
+     * @throws \yii\web\BadRequestHttpException
+     * @throws \yii\base\InvalidParamException
      *
      * @return string
      */

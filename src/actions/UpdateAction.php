@@ -45,6 +45,9 @@ class UpdateAction extends BaseAction
 
     /**
      * @throws \yii\web\NotFoundHttpException
+     * @throws \yii\base\InvalidParamException
+     * @throws \yii\base\InvalidConfigException
+     * @throws \yii\web\BadRequestHttpException
      *
      * @return string
      */

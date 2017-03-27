@@ -58,6 +58,11 @@ class DeleteAction extends BaseAction
 
     /**
      * {@inheritdoc}
+     *
+     * @throws \yii\web\BadRequestHttpException
+     * @throws \yii\web\NotFoundHttpException
+     * @throws \Exception
+     * @throws \yii\base\InvalidParamException
      */
     public function run()
     {
