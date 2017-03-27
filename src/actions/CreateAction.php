@@ -66,7 +66,7 @@ class CreateAction extends BaseAction
             if ($model->save()) {
                 $this->runSuccessHandler($model);
 
-                if (null !== $this->redirectUrl) {
+                if (false !== $this->redirectUrl) {
                     return $this->redirect($model);
                 }
             } elseif (false === $model->hasErrors()) {
