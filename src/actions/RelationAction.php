@@ -34,7 +34,7 @@ class RelationAction extends BaseAction
         }
 
         if (!is_subclass_of($this->formClass, RelationFormAbstract::class)) {
-            throw new InvalidConfigException('Property "modelClass" must be implemented ' . RelationFormAbstract::class);
+            throw new InvalidConfigException('Property "formClass" must be implemented ' . RelationFormAbstract::class);
         }
 
         parent::init();
