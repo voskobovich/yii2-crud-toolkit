@@ -21,8 +21,8 @@ class IndexAction extends BaseAction
      */
     public function init()
     {
-        if (false === is_subclass_of($this->modelClass, IndexFormAbstract::className())) {
-            throw new InvalidConfigException('Property "modelClass" must be implemented ' . IndexFormAbstract::className());
+        if (false === is_subclass_of($this->modelClass, IndexFormAbstract::class)) {
+            throw new InvalidConfigException('Property "modelClass" must be implemented ' . IndexFormAbstract::class);
         }
 
         parent::init();
